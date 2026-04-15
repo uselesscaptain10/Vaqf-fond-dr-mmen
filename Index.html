@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="bs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vaqf Fond Drømmen</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green:        #4caf7d;
+      --green-light:  #e8f5ee;
+      --green-mid:    #a8d5b5;
+      --green-dark:   #2e7d50;
+      --gold:         #c8a84b;
+      --gold-light:   #f5ecd0;
+      --text:         #1a2e22;
+      --text-light:   #4a6358;
+      --white:        #ffffff;
+      --bg:           #f7fbf8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── HEADER / NAV ── */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(247,251,248,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--green-mid);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .logo-text span:first-child {
+      font-family: 'Amiri', serif;
+      font-size: 1.15rem;
+      color: var(--green-dark);
+      font-weight: 700;
+    }
+
+    .logo-text span:last-child {
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--text-light);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-left: 2rem;
+      transition: color 0.2s;
+    }
+
+    nav a:hover { color: var(--green-dark); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 40%, rgba(76,175,125,0.13) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 80% 70%, rgba(200,168,75,0.08) 0%, transparent 60%);
+    }
+
+    /* geometric pattern overlay */
+    .hero-pattern {
+      position: absolute;
+      inset: 0;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%232e7d50' fill-opacity='1'%3E%3Cpath d='M30 0l8.66 15H21.34L30 0zm0 60l-8.66-15h17.32L30 60zM0 30l15-8.66V38.66L0 30zm60 0L45 38.66V21.34L60 30z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .hero-content {
+      position: relative;
+      max-width: 720px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: var(--gold-light);
+      color: var(--gold);
+      border: 1px solid var(--gold);
+      border-radius: 100px;
+      padding: 0.3rem 1rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .hero h1 {
+      font-family: 'Amiri', serif;
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      line-height: 1.15;
+      color: var(--green-dark);
+      margin-bottom: 1rem;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--text-light);
+      font-weight: 300;
+      line-height: 1.7;
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+
+    .btn-primary {
+      background: var(--green-dark);
+      color: var(--white);
+      padding: 0.85rem 2rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .btn-primary:hover {
+      background: var(--green);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      border: 2px solid var(--green-dark);
+      color: var(--green-dark);
+      padding: 0.85rem 2rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      transition: all 0.2s;
+    }
+
+    .btn-outline:hover {
+      background: var(--green-dark);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+
+    /* scroll indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--green-mid);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      animation: fadeUp 0.6s 0.5s ease both;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--green-mid), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    /* ── SECTION SHARED ── */
+    section {
+      padding: 6rem 2rem;
+    }
+
+    .section-inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-family: 'Amiri', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--green-dark);
+      line-height: 1.2;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-body {
+      font-size: 1.05rem;
+      color: var(--text-light);
+      line-height: 1.8;
+      max-width: 640px;
+< truncated lines 265-473 >
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 4px;
+      padding: 1rem 1.5rem;
+      text-decoration: none;
+      color: var(--white);
+      font-size: 1rem;
+      font-weight: 700;
+      transition: background 0.2s;
+    }
+
+    .kontakt-email:hover {
+      background: rgba(255,255,255,0.18);
+    }
+
+    .kontakt-email svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--green-mid);
+      fill: none;
+      stroke-width: 1.8;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--text);
+      color: rgba(255,255,255,0.45);
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
+    }
+
+    footer strong {
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      width: 48px;
+      height: 3px;
+      background: var(--gold);
+      margin: 1.5rem 0;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; }
+      50%       { opacity: 1; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 680px) {
+      header nav { display: none; }
+      .o-nama-grid,
+      .clanstvo-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .o-nama-visual { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a href="#" class="logo">
+    <svg class="logo-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="20" cy="20" r="19" stroke="#4caf7d" stroke-width="1.5"/>
+      <!-- crescent -->
+      <path d="M24 12a10 10 0 1 0 0 16 8 8 0 1 1 0-16z" fill="#2e7d50"/>
+      <!-- star -->
+      <polygon points="26,14 26.8,16.4 29.4,16.4 27.3,17.9 28.1,20.3 26,18.8 23.9,20.3 24.7,17.9 22.6,16.4 25.2,16.4" fill="#c8a84b"/>
+    </svg>
+    <div class="logo-text">
+      <span>Vaqf Fond</span>
+      <span>Drømmen</span>
+    </div>
+  </a>
+  <nav>
+    <a href="#o-nama">O nama</a>
+    <a href="#principi">Principi</a>
+    <a href="#clanstvo">Članstvo</a>
+    <a href="#kontakt">Kontakt</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-pattern"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Drøbak · Norveška · Est. 2025</div>
+    <h1>Vaqf Fond<br/><em>Drømmen</em></h1>
+    <p class="hero-sub">
+      Zajedno gradimo trajni fond koji raste i služi našoj zajednici — danas, sutra i za generacije koje dolaze.
+    </p>
+    <div class="hero-cta">
+      <a href="#clanstvo" class="btn-primary">Postani član</a>
+      <a href="#o-nama" class="btn-outline">Saznaj više</a>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    <span>Skrolaj</span>
+  </div>
+</section>
+
+<!-- O NAMA -->
+<section id="o-nama">
+  <div class="section-inner">
+    <div class="o-nama-grid">
+      <div class="o-nama-visual">
+        <svg class="geometric-art" viewBox="0 0 280 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- outer ring -->
+          <circle cx="140" cy="140" r="130" stroke="#a8d5b5" stroke-width="1"/>
+          <circle cx="140" cy="140" r="110" stroke="#a8d5b5" stroke-width="0.5" stroke-dasharray="4 4"/>
+          <!-- 8-pointed star -->
+          <polygon points="140,30 155,95 210,60 175,115 240,130 175,145 210,200 155,165 140,230 125,165 70,200 105,145 40,130 105,115 70,60 125,95" fill="none" stroke="#4caf7d" stroke-width="1.2"/>
+          <!-- inner geometric -->
+          <polygon points="140,70 170,115 220,120 185,155 195,205 140,180 85,205 95,155 60,120 110,115" fill="none" stroke="#2e7d50" stroke-width="1.5"/>
+          <!-- center -->
+          <circle cx="140" cy="140" r="30" fill="#e8f5ee" stroke="#4caf7d" stroke-width="1.5"/>
+          <circle cx="140" cy="140" r="16" fill="#4caf7d"/>
+          <!-- crescent in center -->
+          <path d="M144 130a12 12 0 1 0 0 20 9 9 0 1 1 0-20z" fill="white"/>
+          <!-- gold accents -->
+          <circle cx="140" cy="30" r="4" fill="#c8a84b"/>
+          <circle cx="140" cy="250" r="4" fill="#c8a84b"/>
+          <circle cx="30" cy="140" r="4" fill="#c8a84b"/>
+          <circle cx="250" cy="140" r="4" fill="#c8a84b"/>
+        </svg>
+      </div>
+      <div class="o-nama-text">
+        <div class="section-label">O nama</div>
+        <h2 class="section-title">Šta je Vaqf Fond Drømmen?</h2>
+        <div class="divider"></div>
+        <div class="section-body">
+          <p>
+            Vaqf Fond Drømmen je neprofitna organizacija registrovana u Norveškoj, osnovana s ciljem da kroz zajedničke doprinose gradi trajni fond koji se investira i raste — a čija se dobit koristi za dobrobit naše zajednice.
+          </p>
+          <p>
+            Inspirisani stoljetnom institucijom vakufa iz islamske tradicije, vjerujemo da zajednički uložen novac može stvarati dugotrajnu vrijednost — za obrazovanje, humanitarne potrebe i jačanje zajednice.
+          </p>
+          <p>
+            Osnovali smo organizaciju s jasnim principima: transparentnost, odgovorno upravljanje i dugoročno razmišljanje.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRINCIPI -->
+<section id="principi">
+  <div class="section-inner">
+    <div class="principi-intro">
+      <div class="section-label">Naši principi</div>
+      <h2 class="section-title">Na čemu gradimo</h2>
+      <div class="divider"></div>
+      <p class="section-body">Tri stuba koja vode svaku našu odluku — od prvog doprinosa do raspodjele dobiti.</p>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <h3>Trajnost kapitala</h3>
+        <p>Doprinosi članova se ne troše — oni se investiraju i ostaju u fondu. Samo dobit se koristi za zajednicu, kao u klasičnom vakufu.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <h3>Dugoročno mišljenje</h3>
+        <p>Fond je namijenjen generacijama. Svaka odluka se donosi s pogledom na budućnost, ne na kratkoročni dobitak.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3>Transparentnost</h3>
+        <p>Svi članovi imaju uvid u poslovanje, investicije i rezultate fonda. Godišnji izvještaj je dostupan svima.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ČLANSTVO -->
+<section id="clanstvo">
+  <div class="section-inner">
+    <div class="section-label">Pridruži se</div>
+    <h2 class="section-title">Kako postati član</h2>
+    <div class="divider"></div>
+    <div class="clanstvo-grid">
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h4>Kontaktiraj nas</h4>
+            <p>Pošalji nam email s kratkim predstavljanjem i interesom za članstvo.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h4>Upoznaj se s pravilima</h4>
+            <p>Dobit ćeš statut i opis investicijske politike fonda na uvid.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h4>Uplati doprinos</h4>
+            <p>Po dogovoru uplaćuješ svoju jednokratnu ili periodičnu uplatu na račun organizacije.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h4>Postani dio zajednice</h4>
+            <p>Dobrodošao si na godišnje skupštine i imaš pravo glasa u svim važnim odlukama.</p>
+          </div>
+        </div>
+      </div>
+      <div class="clanstvo-highlight">
+        <h3>Zašto je to važno?</h3>
+        <p>
+          Svaki doprinos, bez obzira na iznos, postaje dio nečeg trajnog. Fondovi rastu kroz složene kamate — mali iznosi danas mogu postati značajna sredstva za zajednicu sutra.
+        </p>
+        <div class="highlight-quote">
+          "Najbolja sadaka je ona koja teče i nakon što čovjek prestane davati."
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KONTAKT -->
+<section id="kontakt">
+  <div class="section-inner">
+    <div class="kontakt-inner">
+      <div class="section-label">Kontakt</div>
+      <h2 class="section-title">Stupi u kontakt</h2>
+      <p class="section-body">Imaš pitanja o članstvu, fondu ili organizaciji? Slobodno nam se javi — odgovaramo u roku 48 sati.</p>
+      <a href="mailto:edisss88@hotmail.com" class="kontakt-email">
+        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        edisss88@hotmail.com
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p><strong>Vaqf Fond Drømmen</strong> · Neprofitna organizacija registrovana u Norveškoj · Org.nr. tilgjengelig på forespørsel</p>
+</footer>
+
+</body>
+</html>
