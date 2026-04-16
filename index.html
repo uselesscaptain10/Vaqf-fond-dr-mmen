@@ -993,6 +993,7 @@
     signOut,
     onAuthStateChanged
   } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+  import { getFirestore, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
   // ── FIREBASE CONFIG ──
   const firebaseConfig = {
@@ -1007,6 +1008,7 @@
 
   const app  = initializeApp(firebaseConfig);
   const auth = getAuth(app);
+  const db   = getFirestore(app);
 
   // ── UI ELEMENTI ──
   const overlay   = document.getElementById('authModal');
@@ -1139,6 +1141,11 @@
     try {
       const cred = await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(cred.user, { displayName: name });
+      await setDoc(doc(db, 'users', cred.user.uid), {
+        name,
+        email,
+        createdAt: serverTimestamp()
+      });
       showMessage('registerMsg', `Dobrodošli, ${name}! Registracija uspješna.`, 'success');
       setTimeout(() => { window.location.href = 'dashboard.html'; }, 1200);
     } catch (err) {
