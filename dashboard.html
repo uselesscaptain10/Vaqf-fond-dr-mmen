@@ -596,7 +596,7 @@
         <span class="chart-note">Placeholder podaci</span>
       </div>
       <div class="chart-total">
-        <strong id="chartTotal">70 000</strong> NOK trenutna vrijednost
+        <strong id="chartTotal">0</strong> NOK trenutna vrijednost
       </div>
       <canvas id="fundChart" height="100"></canvas>
     </div>
@@ -790,17 +790,9 @@
     gradient.addColorStop(0, 'rgba(46,125,80,0.25)');
     gradient.addColorStop(1, 'rgba(46,125,80,0.0)');
 
-    // Placeholder podaci — ažuriraj po potrebi
-    const labels = [
-      'Jan 2024','Feb 2024','Mar 2024','Apr 2024','Mai 2024','Jun 2024',
-      'Jul 2024','Aug 2024','Sep 2024','Okt 2024','Nov 2024','Des 2024',
-      'Jan 2025','Feb 2025','Mar 2025','Apr 2025'
-    ];
-    const verdier = [
-      0, 10000, 20000, 30000, 35000, 40000,
-      42000, 45000, 50000, 55000, 60000, 65000,
-      66500, 68000, 69000, 70000
-    ];
+    // Podaci fonda — ažuriraj kada fond počne
+    const labels = ['Apr 2025'];
+    const verdier = [0];
 
     new Chart(ctx, {
       type: 'line',
