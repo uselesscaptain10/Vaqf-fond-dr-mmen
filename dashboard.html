@@ -380,6 +380,66 @@
       font-weight: 700;
     }
 
+    /* Inline ime edit */
+    .name-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .edit-name-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-light);
+      padding: 0.2rem;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      transition: color 0.2s;
+    }
+
+    .edit-name-btn:hover { color: var(--green-dark); }
+    .edit-name-btn svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+    .name-edit-form {
+      display: none;
+      gap: 0.5rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .name-edit-form.visible { display: flex; }
+
+    .name-edit-input {
+      padding: 0.4rem 0.75rem;
+      border: 1.5px solid var(--green-mid);
+      border-radius: 4px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.9rem;
+      color: var(--text);
+      background: var(--bg);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .name-edit-input:focus { border-color: var(--green-dark); }
+
+    .name-save-btn {
+      background: var(--green-dark);
+      color: var(--white);
+      border: none;
+      padding: 0.4rem 0.85rem;
+      border-radius: 4px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .name-save-btn:hover { background: var(--green); }
+
     .status-badge {
       display: inline-flex;
       align-items: center;
@@ -521,7 +581,16 @@
         <div class="profile-row">
           <div class="profile-item">
             <div class="profile-item-label">Ime i prezime</div>
-            <div class="profile-item-value" id="profileName">...</div>
+            <div class="name-row">
+              <div class="profile-item-value" id="profileName">...</div>
+              <button class="edit-name-btn" id="editNameBtn" title="Promijeni ime">
+                <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              </button>
+            </div>
+            <div class="name-edit-form" id="nameEditForm">
+              <input class="name-edit-input" id="nameEditInput" type="text" placeholder="Vaše ime i prezime"/>
+              <button class="name-save-btn" id="nameSaveBtn">Spremi</button>
+            </div>
           </div>
           <div class="profile-item">
             <div class="profile-item-label">Email adresa</div>
@@ -549,7 +618,7 @@
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-  import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+  import { getAuth, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
   import { getFirestore, collection, getCountFromServer, doc, getDoc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
   const firebaseConfig = {
@@ -579,7 +648,11 @@
       return;
     }
 
-    const ime   = user.displayName || user.email.split('@')[0];
+    // Koristi Firestore ime ako displayName nije postavljen
+    const userRef = doc(db, 'users', user.uid);
+    const userSnap = await getDoc(userRef);
+    const firestoreIme = userSnap.exists() ? userSnap.data().name : '';
+    const ime = user.displayName || firestoreIme || user.email.split('@')[0];
     const email = user.email;
     const datum = user.metadata.creationTime
       ? new Date(user.metadata.creationTime)
@@ -596,11 +669,9 @@
     document.getElementById('profileJoined').textContent = datumTekst;
 
     // Kreiraj dokument ako ne postoji (za korisnike koji su se registrovali ranije)
-    const userRef = doc(db, 'users', user.uid);
-    const userSnap = await getDoc(userRef);
     if (!userSnap.exists()) {
       await setDoc(userRef, {
-        name:      user.displayName || '',
+        name:      ime,
         email:     user.email,
         createdAt: serverTimestamp()
       });
@@ -619,6 +690,33 @@
   }
 
   init();
+
+  // ── EDIT IME ──
+  const editNameBtn  = document.getElementById('editNameBtn');
+  const nameEditForm = document.getElementById('nameEditForm');
+  const nameEditInput = document.getElementById('nameEditInput');
+  const nameSaveBtn  = document.getElementById('nameSaveBtn');
+
+  editNameBtn.addEventListener('click', () => {
+    nameEditInput.value = document.getElementById('profileName').textContent.replace('—','').trim();
+    nameEditForm.classList.add('visible');
+    nameEditInput.focus();
+  });
+
+  nameSaveBtn.addEventListener('click', async () => {
+    const novoIme = nameEditInput.value.trim();
+    if (!novoIme) return;
+
+    await updateProfile(auth.currentUser, { displayName: novoIme });
+    await setDoc(doc(db, 'users', auth.currentUser.uid), { name: novoIme }, { merge: true });
+
+    // Ažuriraj UI
+    document.getElementById('profileName').textContent  = novoIme;
+    document.getElementById('userName').textContent     = novoIme;
+    document.getElementById('userAvatar').textContent   = novoIme.charAt(0).toUpperCase();
+    document.getElementById('welcomeName').textContent  = novoIme.split(' ')[0];
+    nameEditForm.classList.remove('visible');
+  });
 
   document.getElementById('logoutBtn').addEventListener('click', async () => {
     await signOut(auth);
