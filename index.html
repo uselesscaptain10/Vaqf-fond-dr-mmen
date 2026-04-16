@@ -983,7 +983,32 @@
   </div>
 </div>
 
-<script>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import {
+    getAuth,
+    signInWithEmailAndPassword,
+    createUserWithEmailAndPassword,
+    updateProfile,
+    signOut,
+    onAuthStateChanged
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+  // ── FIREBASE CONFIG ──
+  const firebaseConfig = {
+    apiKey: "AIzaSyCLkniDY6_zdaZ7p3vVpo3VCz2qtZwvEjw",
+    authDomain: "vaqf-fond-drommen.firebaseapp.com",
+    projectId: "vaqf-fond-drommen",
+    storageBucket: "vaqf-fond-drommen.firebasestorage.app",
+    messagingSenderId: "81533591116",
+    appId: "1:81533591116:web:e00fd98ab8cc88d88b5ee9",
+    measurementId: "G-WY3HRR8Y16"
+  };
+
+  const app  = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  // ── UI ELEMENTI ──
   const overlay   = document.getElementById('authModal');
   const openBtn   = document.getElementById('openAuthBtn');
   const closeBtn  = document.getElementById('closeAuthBtn');
@@ -992,6 +1017,21 @@
   const loginForm = document.getElementById('loginForm');
   const regForm   = document.getElementById('registerForm');
 
+  // ── AUTH STATE — prati prijavljenog korisnika ──
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const ime = user.displayName || user.email;
+      openBtn.textContent = ime;
+      openBtn.title = 'Klikni za odjavu';
+      openBtn.dataset.loggedIn = 'true';
+    } else {
+      openBtn.textContent = 'Prijavi se';
+      openBtn.title = '';
+      openBtn.dataset.loggedIn = 'false';
+    }
+  });
+
+  // ── MODAL ──
   function openModal() {
     overlay.classList.add('active');
     document.body.style.overflow = 'hidden';
@@ -1003,16 +1043,17 @@
     document.body.style.overflow = '';
   }
 
-  openBtn.addEventListener('click', openModal);
+  openBtn.addEventListener('click', () => {
+    if (openBtn.dataset.loggedIn === 'true') {
+      signOut(auth);
+    } else {
+      openModal();
+    }
+  });
+
   closeBtn.addEventListener('click', closeModal);
-
-  overlay.addEventListener('click', (e) => {
-    if (e.target === overlay) closeModal();
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeModal();
-  });
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
 
   function switchTab(tab) {
     const isLogin = tab === 'login';
@@ -1023,8 +1064,9 @@
   }
 
   tabLogin.addEventListener('click', () => switchTab('login'));
-  tabReg.addEventListener('click', () => switchTab('register'));
+  tabReg.addEventListener('click',   () => switchTab('register'));
 
+  // ── HELPERS ──
   function setFieldError(inputId, errId, show) {
     document.getElementById(inputId).classList.toggle('input-error', show);
     document.getElementById(errId).classList.toggle('visible', show);
@@ -1040,27 +1082,43 @@
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
   }
 
+  function firebaseGreska(code) {
+    const poruke = {
+      'auth/invalid-credential':    'Pogrešan email ili lozinka.',
+      'auth/user-not-found':        'Korisnik s ovim emailom nije pronađen.',
+      'auth/wrong-password':        'Pogrešna lozinka.',
+      'auth/email-already-in-use':  'Ova email adresa je već registrovana.',
+      'auth/weak-password':         'Lozinka mora imati najmanje 6 znakova.',
+      'auth/too-many-requests':     'Previše pokušaja. Pokušajte ponovo za nekoliko minuta.',
+      'auth/network-request-failed':'Greška mreže. Provjerite internet konekciju.',
+    };
+    return poruke[code] || 'Došlo je do greške. Pokušajte ponovo.';
+  }
+
   // ── PRIJAVA ──
-  loginForm.addEventListener('submit', (e) => {
+  loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const email    = document.getElementById('loginEmail').value.trim();
     const password = document.getElementById('loginPassword').value;
     let valid = true;
 
-    if (!isValidEmail(email))  { setFieldError('loginEmail', 'loginEmailErr', true);    valid = false; }
-    else                        { setFieldError('loginEmail', 'loginEmailErr', false); }
-
-    if (!password)              { setFieldError('loginPassword', 'loginPasswordErr', true);  valid = false; }
-    else                        { setFieldError('loginPassword', 'loginPasswordErr', false); }
-
+    if (!isValidEmail(email)) { setFieldError('loginEmail',    'loginEmailErr',    true);  valid = false; }
+    else                       { setFieldError('loginEmail',    'loginEmailErr',    false); }
+    if (!password)             { setFieldError('loginPassword', 'loginPasswordErr', true);  valid = false; }
+    else                       { setFieldError('loginPassword', 'loginPasswordErr', false); }
     if (!valid) return;
 
-    // TODO: zamijeniti sa Firebase → signInWithEmailAndPassword(auth, email, password)
-    showMessage('loginMsg', 'Prijavljivanje uspješno! (Firebase integracija dolazi)', 'success');
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      showMessage('loginMsg', 'Uspješno ste se prijavili!', 'success');
+      setTimeout(closeModal, 1200);
+    } catch (err) {
+      showMessage('loginMsg', firebaseGreska(err.code), 'msg-error');
+    }
   });
 
   // ── REGISTRACIJA ──
-  regForm.addEventListener('submit', (e) => {
+  regForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const name     = document.getElementById('regName').value.trim();
     const email    = document.getElementById('regEmail').value.trim();
@@ -1068,22 +1126,24 @@
     const confirm  = document.getElementById('regConfirm').value;
     let valid = true;
 
-    if (!name)                      { setFieldError('regName', 'regNameErr', true);     valid = false; }
-    else                             { setFieldError('regName', 'regNameErr', false); }
-
-    if (!isValidEmail(email))       { setFieldError('regEmail', 'regEmailErr', true);   valid = false; }
-    else                             { setFieldError('regEmail', 'regEmailErr', false); }
-
-    if (password.length < 8)        { setFieldError('regPassword', 'regPasswordErr', true);  valid = false; }
-    else                             { setFieldError('regPassword', 'regPasswordErr', false); }
-
-    if (password !== confirm)       { setFieldError('regConfirm', 'regConfirmErr', true);  valid = false; }
-    else                             { setFieldError('regConfirm', 'regConfirmErr', false); }
-
+    if (!name)               { setFieldError('regName',     'regNameErr',     true);  valid = false; }
+    else                      { setFieldError('regName',     'regNameErr',     false); }
+    if (!isValidEmail(email)) { setFieldError('regEmail',    'regEmailErr',    true);  valid = false; }
+    else                      { setFieldError('regEmail',    'regEmailErr',    false); }
+    if (password.length < 8)  { setFieldError('regPassword', 'regPasswordErr', true);  valid = false; }
+    else                      { setFieldError('regPassword', 'regPasswordErr', false); }
+    if (password !== confirm)  { setFieldError('regConfirm',  'regConfirmErr',  true);  valid = false; }
+    else                      { setFieldError('regConfirm',  'regConfirmErr',  false); }
     if (!valid) return;
 
-    // TODO: zamijeniti sa Firebase → createUserWithEmailAndPassword(auth, email, password)
-    showMessage('registerMsg', 'Registracija uspješna! (Firebase integracija dolazi)', 'success');
+    try {
+      const cred = await createUserWithEmailAndPassword(auth, email, password);
+      await updateProfile(cred.user, { displayName: name });
+      showMessage('registerMsg', `Dobrodošli, ${name}! Registracija uspješna.`, 'success');
+      setTimeout(closeModal, 1500);
+    } catch (err) {
+      showMessage('registerMsg', firebaseGreska(err.code), 'msg-error');
+    }
   });
 </script>
 
