@@ -711,13 +711,78 @@
       border: 1px solid #feb2b2;
     }
 
+    /* ── HAMBURGER ── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.4rem;
+      border-radius: 4px;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: transform 0.25s, opacity 0.25s;
+    }
+
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ── MOBILE NAV ── */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 64px;
+      left: 0;
+      right: 0;
+      z-index: 99;
+      background: var(--white);
+      border-bottom: 2px solid var(--green-mid);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      flex-direction: column;
+      padding: 0.5rem 1.5rem 1.5rem;
+    }
+
+    .mobile-nav.open { display: flex; }
+
+    .mobile-nav-link {
+      text-decoration: none;
+      color: var(--text);
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.9rem 0;
+      border-bottom: 1px solid var(--green-light);
+      transition: color 0.2s;
+    }
+
+    .mobile-nav-link:hover { color: var(--green-dark); }
+
+    .mobile-nav .auth-btn {
+      margin: 1rem 0 0;
+      width: 100%;
+      padding: 0.85rem;
+      font-size: 0.95rem;
+      text-align: center;
+    }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 680px) {
       header nav { display: none; }
+      .hamburger { display: flex; }
       .o-nama-grid,
       .clanstvo-grid { grid-template-columns: 1fr; gap: 2rem; }
       .o-nama-visual { display: none; }
-      .auth-btn { margin-left: 0; }
     }
   </style>
 </head>
@@ -745,7 +810,20 @@
     <a href="#kontakt">Kontakt</a>
     <button class="auth-btn" id="openAuthBtn">Prijavi se</button>
   </nav>
+  <button class="hamburger" id="hamburger" aria-label="Otvori meni">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
 </header>
+
+<div class="mobile-nav" id="mobileNav">
+  <a href="#o-nama" class="mobile-nav-link">O nama</a>
+  <a href="#principi" class="mobile-nav-link">Principi</a>
+  <a href="#clanstvo" class="mobile-nav-link">Članstvo</a>
+  <a href="#kontakt" class="mobile-nav-link">Kontakt</a>
+  <button class="auth-btn" id="openAuthBtnMobile">Prijavi se</button>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -1020,16 +1098,51 @@
   const regForm   = document.getElementById('registerForm');
 
   // ── AUTH STATE — prati prijavljenog korisnika ──
-  onAuthStateChanged(auth, (user) => {
+  const openBtnMobile = document.getElementById('openAuthBtnMobile');
+
+  function setAuthState(user) {
     if (user) {
       const ime = user.displayName || user.email;
       openBtn.textContent = ime;
       openBtn.title = 'Klikni za odjavu';
       openBtn.dataset.loggedIn = 'true';
+      openBtnMobile.textContent = ime;
+      openBtnMobile.dataset.loggedIn = 'true';
     } else {
       openBtn.textContent = 'Prijavi se';
       openBtn.title = '';
       openBtn.dataset.loggedIn = 'false';
+      openBtnMobile.textContent = 'Prijavi se';
+      openBtnMobile.dataset.loggedIn = 'false';
+    }
+  }
+
+  onAuthStateChanged(auth, setAuthState);
+
+  // ── HAMBURGER ──
+  const hamburger    = document.getElementById('hamburger');
+  const mobileNav    = document.getElementById('mobileNav');
+
+  function closeMobileNav() {
+    hamburger.classList.remove('open');
+    mobileNav.classList.remove('open');
+  }
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileNav.classList.toggle('open');
+  });
+
+  mobileNav.querySelectorAll('.mobile-nav-link').forEach(a => {
+    a.addEventListener('click', closeMobileNav);
+  });
+
+  openBtnMobile.addEventListener('click', () => {
+    closeMobileNav();
+    if (openBtnMobile.dataset.loggedIn === 'true') {
+      signOut(auth);
+    } else {
+      openModal();
     }
   });
 
