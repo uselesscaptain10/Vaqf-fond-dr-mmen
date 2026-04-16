@@ -1111,7 +1111,7 @@
     try {
       await signInWithEmailAndPassword(auth, email, password);
       showMessage('loginMsg', 'Uspješno ste se prijavili!', 'success');
-      setTimeout(closeModal, 1200);
+      setTimeout(() => { window.location.href = 'dashboard.html'; }, 1000);
     } catch (err) {
       showMessage('loginMsg', firebaseGreska(err.code), 'msg-error');
     }
@@ -1140,7 +1140,7 @@
       const cred = await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(cred.user, { displayName: name });
       showMessage('registerMsg', `Dobrodošli, ${name}! Registracija uspješna.`, 'success');
-      setTimeout(closeModal, 1500);
+      setTimeout(() => { window.location.href = 'dashboard.html'; }, 1200);
     } catch (err) {
       showMessage('registerMsg', firebaseGreska(err.code), 'msg-error');
     }
