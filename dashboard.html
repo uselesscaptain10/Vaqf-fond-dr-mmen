@@ -213,6 +213,20 @@
       color: var(--gold);
     }
 
+    /* ── ČLANSKI BROJ ── */
+    .member-num-badge {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--green-dark);
+      letter-spacing: 0.1em;
+      background: var(--green-light);
+      border: 1px solid var(--green-mid);
+      border-radius: 4px;
+      padding: 0.25rem 0.65rem;
+      display: inline-block;
+      font-family: 'Lato', monospace;
+    }
+
     /* ── ACCOUNT BANNER ── */
     .account-banner {
       display: flex;
@@ -923,6 +937,10 @@
         <div class="panel-title" data-i18n="dash.panelProfile">Moj profil</div>
         <div class="profile-row">
           <div class="profile-item">
+            <div class="profile-item-label" data-i18n="dash.profileMemberNum">Članski broj</div>
+            <div class="member-num-badge" id="profileMemberNum">—</div>
+          </div>
+          <div class="profile-item">
             <div class="profile-item-label" data-i18n="dash.profileName">Ime i prezime</div>
             <div class="name-row">
               <div class="profile-item-value" id="profileName">...</div>
@@ -995,7 +1013,7 @@
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
   import { getAuth, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-  import { getFirestore, collection, getCountFromServer, doc, getDoc, setDoc, addDoc, getDocs, deleteDoc, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+  import { getFirestore, collection, getCountFromServer, doc, getDoc, setDoc, addDoc, getDocs, deleteDoc, query, orderBy, serverTimestamp, runTransaction } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
   import { getStorage, ref as storageRef, uploadBytesResumable, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 
   const firebaseConfig = {
@@ -1041,6 +1059,7 @@
       'dash.notice3Text':   'Termin godišnje skupštine bit će dogovorena sa svim članovima u narednom periodu.',
       'dash.noticeDate2':   'Uskoro',
       'dash.panelProfile':  'Moj profil',
+      'dash.profileMemberNum': 'Članski broj',
       'dash.profileName':   'Ime i prezime',
       'dash.profileEmail':  'Email adresa',
       'dash.profileStatus': 'Status',
@@ -1080,6 +1099,7 @@
       'dash.notice3Text':   'Tidspunktet for den årlige generalforsamlingen vil bli avtalt med alle medlemmer i løpet av nærmeste fremtid.',
       'dash.noticeDate2':   'Snart',
       'dash.panelProfile':  'Min profil',
+      'dash.profileMemberNum': 'Medlemsnummer',
       'dash.profileName':   'Fornavn og etternavn',
       'dash.profileEmail':  'E-postadresse',
       'dash.profileStatus': 'Status',
@@ -1155,22 +1175,33 @@
       : new Date();
     const inicijal = ime.charAt(0).toUpperCase();
 
-    document.getElementById('userAvatar').textContent    = inicijal;
-    document.getElementById('userName').textContent      = ime;
-    document.getElementById('userEmail').textContent     = email;
-    document.getElementById('welcomeName').textContent   = ime.split(' ')[0];
-    document.getElementById('profileName').textContent   = user.displayName || '—';
-    document.getElementById('profileEmail').textContent  = email;
-    document.getElementById('profileJoined').textContent = formatJoinDate(joinDate, currentLang);
-
-    // Kreiraj dokument ako ne postoji (za korisnike koji su se registrovali ranije)
-    if (!userSnap.exists()) {
-      await setDoc(userRef, {
-        name:      ime,
-        email:     user.email,
-        createdAt: serverTimestamp()
+    // Dodijeli članski broj ako ga nema (novi i stari korisnici)
+    let memberNumber = userSnap.exists() ? userSnap.data().memberNumber : null;
+    if (!memberNumber) {
+      const counterRef = doc(db, 'meta', 'memberCounter');
+      await runTransaction(db, async (tx) => {
+        const counterSnap = await tx.get(counterRef);
+        const lastNum = counterSnap.exists() ? counterSnap.data().lastNumber : 0;
+        const newNum = lastNum + 1;
+        memberNumber = 'VFD-' + String(newNum).padStart(4, '0');
+        tx.set(counterRef, { lastNumber: newNum }, { merge: true });
+        tx.set(userRef, {
+          name:         ime,
+          email:        user.email,
+          memberNumber,
+          createdAt:    serverTimestamp()
+        }, { merge: true });
       });
     }
+
+    document.getElementById('userAvatar').textContent       = inicijal;
+    document.getElementById('userName').textContent         = ime;
+    document.getElementById('userEmail').textContent        = email;
+    document.getElementById('welcomeName').textContent      = ime.split(' ')[0];
+    document.getElementById('profileName').textContent      = user.displayName || '—';
+    document.getElementById('profileEmail').textContent     = email;
+    document.getElementById('profileJoined').textContent    = formatJoinDate(joinDate, currentLang);
+    document.getElementById('profileMemberNum').textContent = memberNumber;
 
     document.getElementById('loading').style.display = 'none';
     document.getElementById('content').style.display = 'block';
