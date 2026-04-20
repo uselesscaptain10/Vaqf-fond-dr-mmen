@@ -536,6 +536,220 @@
       user-select: none;
     }
 
+    /* ── DOKUMENTI ── */
+    .docs-panel {
+      margin-top: 1.5rem;
+    }
+
+    .upload-area {
+      border: 2px dashed var(--green-mid);
+      border-radius: 8px;
+      padding: 1.75rem;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      margin-bottom: 1.25rem;
+      background: var(--bg);
+      position: relative;
+    }
+
+    .upload-area:hover,
+    .upload-area.dragover {
+      border-color: var(--green-dark);
+      background: var(--green-light);
+    }
+
+    .upload-area input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+
+    .upload-icon {
+      width: 36px;
+      height: 36px;
+      stroke: var(--green-mid);
+      fill: none;
+      stroke-width: 1.5;
+      margin: 0 auto 0.75rem;
+      display: block;
+      transition: stroke 0.2s;
+    }
+
+    .upload-area:hover .upload-icon,
+    .upload-area.dragover .upload-icon { stroke: var(--green-dark); }
+
+    .upload-text {
+      font-size: 0.88rem;
+      color: var(--text-light);
+      pointer-events: none;
+    }
+
+    .upload-text strong {
+      color: var(--green-dark);
+      font-weight: 700;
+    }
+
+    .upload-hint {
+      font-size: 0.75rem;
+      color: var(--text-light);
+      margin-top: 0.25rem;
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .upload-progress {
+      display: none;
+      margin-bottom: 1rem;
+    }
+
+    .progress-bar {
+      height: 6px;
+      background: var(--green-light);
+      border-radius: 100px;
+      overflow: hidden;
+      margin-bottom: 0.35rem;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--green-dark);
+      border-radius: 100px;
+      width: 0%;
+      transition: width 0.2s;
+    }
+
+    .progress-label {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .doc-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .doc-item {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      padding: 0.85rem 1rem;
+      background: var(--bg);
+      border: 1px solid var(--green-light);
+      border-radius: 8px;
+      transition: border-color 0.2s;
+    }
+
+    .doc-item:hover { border-color: var(--green-mid); }
+
+    .doc-file-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--green-light);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .doc-file-icon svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--green-dark);
+      fill: none;
+      stroke-width: 2;
+    }
+
+    .doc-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .doc-name {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .doc-meta {
+      font-size: 0.75rem;
+      color: var(--text-light);
+      margin-top: 0.1rem;
+    }
+
+    .doc-actions {
+      display: flex;
+      gap: 0.5rem;
+      flex-shrink: 0;
+    }
+
+    .btn-doc {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.35rem 0.75rem;
+      border-radius: 4px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+
+    .btn-doc svg {
+      width: 13px;
+      height: 13px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .btn-download {
+      background: var(--green-light);
+      color: var(--green-dark);
+    }
+
+    .btn-download:hover { background: var(--green-mid); }
+
+    .btn-delete {
+      background: #fef2f2;
+      color: #dc2626;
+    }
+
+    .btn-delete:hover { background: #fee2e2; }
+
+    .docs-empty {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-light);
+      font-size: 0.88rem;
+    }
+
+    .upload-msg {
+      font-size: 0.82rem;
+      padding: 0.5rem 0.75rem;
+      border-radius: 4px;
+      margin-bottom: 0.75rem;
+      display: none;
+    }
+
+    .upload-msg.success { background: var(--green-light); color: var(--green-dark); display: block; }
+    .upload-msg.error   { background: #fef2f2; color: #dc2626; display: block; }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 700px) {
       .stats-grid { grid-template-columns: 1fr 1fr; }
@@ -706,6 +920,38 @@
       </div>
 
     </div>
+
+    <!-- DOKUMENTI -->
+    <div class="panel docs-panel">
+      <div class="panel-title" data-i18n="dash.panelDocs">Dokumenti</div>
+
+      <!-- Admin upload area (vidljivo samo adminu) -->
+      <div id="adminUpload" style="display:none">
+        <div class="upload-msg" id="uploadMsg"></div>
+        <div class="upload-area" id="uploadArea">
+          <input type="file" id="fileInput" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.png,.jpg,.jpeg"/>
+          <svg class="upload-icon" viewBox="0 0 24 24">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="17 8 12 3 7 8"/>
+            <line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+          <p class="upload-text"><strong data-i18n="dash.uploadClick">Klikni ili prevuci fajl</strong></p>
+          <p class="upload-hint">PDF, Word, Excel, PowerPoint, slike</p>
+        </div>
+        <div class="upload-progress" id="uploadProgress">
+          <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+          <div class="progress-label">
+            <span id="progressFileName"></span>
+            <span id="progressPct">0%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="doc-list" id="docList">
+        <p class="docs-empty" id="docsEmpty" data-i18n="dash.docsEmpty">Nema dostupnih dokumenata.</p>
+      </div>
+    </div>
+
   </main>
 </div>
 
@@ -713,7 +959,8 @@
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
   import { getAuth, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-  import { getFirestore, collection, getCountFromServer, doc, getDoc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+  import { getFirestore, collection, getCountFromServer, doc, getDoc, setDoc, addDoc, getDocs, deleteDoc, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+  import { getStorage, ref as storageRef, uploadBytesResumable, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyCLkniDY6_zdaZ7p3vVpo3VCz2qtZwvEjw",
@@ -725,9 +972,12 @@
     measurementId: "G-WY3HRR8Y16"
   };
 
-  const app  = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db   = getFirestore(app);
+  const app     = initializeApp(firebaseConfig);
+  const auth    = getAuth(app);
+  const db      = getFirestore(app);
+  const storage = getStorage(app);
+
+  const ADMIN_EMAIL = 'edisss88@hotmail.com';
 
   // ── I18N ──
   const t = {
@@ -762,6 +1012,11 @@
       'dash.profileJoined': 'Član od',
       'dash.saveName':      'Spremi',
       'dash.namePh':        'Vaše ime i prezime',
+      'dash.panelDocs':     'Dokumenti',
+      'dash.uploadClick':   'Klikni ili prevuci fajl',
+      'dash.docsEmpty':     'Nema dostupnih dokumenata.',
+      'dash.docsDownload':  'Preuzmi',
+      'dash.docsDelete':    'Obriši',
     },
     no: {
       'dash.logout':        'Logg ut',
@@ -794,6 +1049,11 @@
       'dash.profileJoined': 'Medlem siden',
       'dash.saveName':      'Lagre',
       'dash.namePh':        'Ditt navn',
+      'dash.panelDocs':     'Dokumenter',
+      'dash.uploadClick':   'Klikk eller dra fil',
+      'dash.docsEmpty':     'Ingen dokumenter tilgjengelig.',
+      'dash.docsDownload':  'Last ned',
+      'dash.docsDelete':    'Slett',
     }
   };
 
@@ -882,6 +1142,8 @@
     } catch {
       document.getElementById('memberCount').textContent = '–';
     }
+
+    initDocs(user);
   }
 
   init();
@@ -917,6 +1179,164 @@
     await signOut(auth);
     window.location.href = 'index.html';
   });
+
+  // ── DOKUMENTI ──
+  let isAdmin = false;
+
+  function formatSize(bytes) {
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+    return (bytes / 1024 / 1024).toFixed(1) + ' MB';
+  }
+
+  function fileIcon() {
+    return `<svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>`;
+  }
+
+  function renderDoc(docId, data) {
+    const date = data.uploadedAt?.toDate?.();
+    const dateStr = date
+      ? date.toLocaleDateString(currentLang === 'no' ? 'nb-NO' : 'bs-BA', { day: 'numeric', month: 'short', year: 'numeric' })
+      : '';
+    const dl = t[currentLang]['dash.docsDownload'];
+    const del = t[currentLang]['dash.docsDelete'];
+    return `
+      <div class="doc-item" data-id="${docId}" data-path="${data.storagePath}">
+        <div class="doc-file-icon">${fileIcon()}</div>
+        <div class="doc-info">
+          <div class="doc-name" title="${data.name}">${data.name}</div>
+          <div class="doc-meta">${formatSize(data.size)} · ${dateStr}</div>
+        </div>
+        <div class="doc-actions">
+          <a class="btn-doc btn-download" href="${data.url}" target="_blank" download="${data.name}">
+            <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            ${dl}
+          </a>
+          ${isAdmin ? `<button class="btn-doc btn-delete" data-doc-id="${docId}" data-storage-path="${data.storagePath}">${del}</button>` : ''}
+        </div>
+      </div>`;
+  }
+
+  async function loadDocs() {
+    const list = document.getElementById('docList');
+    const empty = document.getElementById('docsEmpty');
+    try {
+      const q = query(collection(db, 'documents'), orderBy('uploadedAt', 'desc'));
+      const snap = await getDocs(q);
+      if (snap.empty) {
+        empty.style.display = 'block';
+        return;
+      }
+      empty.style.display = 'none';
+      snap.forEach(d => {
+        const div = document.createElement('div');
+        div.innerHTML = renderDoc(d.id, d.data());
+        list.appendChild(div.firstElementChild);
+      });
+      // Wire up delete buttons
+      list.querySelectorAll('.btn-delete').forEach(btn => {
+        btn.addEventListener('click', () => deleteDoc2(btn.dataset.docId, btn.dataset.storagePath));
+      });
+    } catch (err) {
+      console.error('loadDocs:', err);
+    }
+  }
+
+  async function deleteDoc2(docId, storagePath) {
+    if (!confirm(currentLang === 'no' ? 'Slette dette dokumentet?' : 'Obrisati ovaj dokument?')) return;
+    try {
+      await deleteObject(storageRef(storage, storagePath));
+      await deleteDoc(doc(db, 'documents', docId));
+      // Refresh list
+      const list = document.getElementById('docList');
+      list.querySelectorAll('.doc-item').forEach(el => {
+        if (el.dataset.id === docId) el.remove();
+      });
+      if (!list.querySelector('.doc-item')) document.getElementById('docsEmpty').style.display = 'block';
+    } catch (err) {
+      console.error('deleteDoc:', err);
+    }
+  }
+
+  function initDocs(user) {
+    isAdmin = user.email === ADMIN_EMAIL;
+    if (isAdmin) document.getElementById('adminUpload').style.display = 'block';
+    loadDocs();
+
+    const uploadArea = document.getElementById('uploadArea');
+    const fileInput  = document.getElementById('fileInput');
+    const progress   = document.getElementById('uploadProgress');
+    const fill       = document.getElementById('progressFill');
+    const pct        = document.getElementById('progressPct');
+    const fileName   = document.getElementById('progressFileName');
+    const msg        = document.getElementById('uploadMsg');
+
+    if (!isAdmin) return;
+
+    uploadArea.addEventListener('dragover', e => { e.preventDefault(); uploadArea.classList.add('dragover'); });
+    uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('dragover'));
+    uploadArea.addEventListener('drop', e => { e.preventDefault(); uploadArea.classList.remove('dragover'); handleFiles(e.dataTransfer.files); });
+    fileInput.addEventListener('change', () => { handleFiles(fileInput.files); fileInput.value = ''; });
+
+    async function handleFiles(files) {
+      for (const file of files) {
+        msg.className = 'upload-msg';
+        progress.style.display = 'block';
+        fill.style.width = '0%';
+        pct.textContent = '0%';
+        fileName.textContent = file.name;
+
+        const path = `documents/${Date.now()}_${file.name}`;
+        const sRef = storageRef(storage, path);
+        const task = uploadBytesResumable(sRef, file);
+
+        await new Promise((resolve, reject) => {
+          task.on('state_changed',
+            snap => {
+              const p = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
+              fill.style.width = p + '%';
+              pct.textContent = p + '%';
+            },
+            err => { reject(err); },
+            async () => {
+              const url = await getDownloadURL(task.snapshot.ref);
+              const docRef = await addDoc(collection(db, 'documents'), {
+                name: file.name,
+                url,
+                storagePath: path,
+                size: file.size,
+                type: file.type,
+                uploadedAt: serverTimestamp()
+              });
+              // Reload doc in list
+              const snap2 = await getDocs(query(collection(db, 'documents'), orderBy('uploadedAt', 'desc')));
+              const data = snap2.docs.find(d => d.id === docRef.id)?.data();
+              if (data) {
+                const list = document.getElementById('docList');
+                document.getElementById('docsEmpty').style.display = 'none';
+                const div = document.createElement('div');
+                div.innerHTML = renderDoc(docRef.id, data);
+                const item = div.firstElementChild;
+                list.prepend(item);
+                item.querySelector('.btn-delete')?.addEventListener('click', () => deleteDoc2(docRef.id, path));
+              }
+              resolve();
+            }
+          );
+        }).catch(err => {
+          msg.textContent = err.message;
+          msg.className = 'upload-msg error';
+        });
+
+        progress.style.display = 'none';
+        if (!msg.classList.contains('error')) {
+          msg.textContent = currentLang === 'no' ? 'Fil lastet opp!' : 'Fajl uspješno uploadovan!';
+          msg.className = 'upload-msg success';
+          setTimeout(() => { msg.className = 'upload-msg'; }, 3000);
+        }
+      }
+    }
+  }
 
   // ── GRAF ──
   function initChart() {
