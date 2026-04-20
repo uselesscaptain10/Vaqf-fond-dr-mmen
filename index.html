@@ -836,7 +836,7 @@
       Zajedno gradimo trajni fond koji raste i služi našoj zajednici — danas, sutra i za generacije koje dolaze.
     </p>
     <div class="hero-cta">
-      <a href="#clanstvo" class="btn-primary">Postani član</a>
+      <a href="#clanstvo" class="btn-primary" id="postaniClanBtn">Postani član</a>
       <a href="#o-nama" class="btn-outline">Saznaj više</a>
     </div>
   </div>
@@ -1180,6 +1180,12 @@
 
   tabLogin.addEventListener('click', () => switchTab('login'));
   tabReg.addEventListener('click',   () => switchTab('register'));
+
+  document.getElementById('postaniClanBtn').addEventListener('click', (e) => {
+    e.preventDefault();
+    switchTab('register');
+    openModal();
+  });
 
   // ── HELPERS ──
   function setFieldError(inputId, errId, show) {
