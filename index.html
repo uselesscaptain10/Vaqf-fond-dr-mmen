@@ -711,6 +711,41 @@
       border: 1px solid #feb2b2;
     }
 
+    /* ── LANGUAGE SWITCHER ── */
+    .lang-switcher {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      margin-right: 1rem;
+    }
+
+    .lang-btn {
+      background: none;
+      border: 1.5px solid transparent;
+      padding: 0.25rem 0.55rem;
+      border-radius: 4px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      color: var(--text-light);
+      transition: all 0.2s;
+    }
+
+    .lang-btn:hover { color: var(--green-dark); }
+
+    .lang-btn.active {
+      color: var(--green-dark);
+      border-color: var(--green-mid);
+      background: var(--green-light);
+    }
+
+    .lang-divider {
+      color: var(--green-mid);
+      font-size: 0.75rem;
+    }
+
     /* ── HAMBURGER ── */
     .hamburger {
       display: none;
@@ -804,11 +839,16 @@
     </div>
   </a>
   <nav>
-    <a href="#o-nama">O nama</a>
-    <a href="#principi">Principi</a>
-    <a href="#clanstvo">Članstvo</a>
-    <a href="#kontakt">Kontakt</a>
-    <button class="auth-btn" id="openAuthBtn">Prijavi se</button>
+    <div class="lang-switcher">
+      <button class="lang-btn active" data-lang="bs">BS</button>
+      <span class="lang-divider">|</span>
+      <button class="lang-btn" data-lang="no">NO</button>
+    </div>
+    <a href="#o-nama" data-i18n="nav.onama">O nama</a>
+    <a href="#principi" data-i18n="nav.principi">Principi</a>
+    <a href="#clanstvo" data-i18n="nav.clanstvo">Članstvo</a>
+    <a href="#kontakt" data-i18n="nav.kontakt">Kontakt</a>
+    <button class="auth-btn" id="openAuthBtn" data-i18n="nav.prijavi">Prijavi se</button>
   </nav>
   <button class="hamburger" id="hamburger" aria-label="Otvori meni">
     <span></span>
@@ -818,11 +858,16 @@
 </header>
 
 <div class="mobile-nav" id="mobileNav">
-  <a href="#o-nama" class="mobile-nav-link">O nama</a>
-  <a href="#principi" class="mobile-nav-link">Principi</a>
-  <a href="#clanstvo" class="mobile-nav-link">Članstvo</a>
-  <a href="#kontakt" class="mobile-nav-link">Kontakt</a>
-  <button class="auth-btn" id="openAuthBtnMobile">Prijavi se</button>
+  <a href="#o-nama" class="mobile-nav-link" data-i18n="nav.onama">O nama</a>
+  <a href="#principi" class="mobile-nav-link" data-i18n="nav.principi">Principi</a>
+  <a href="#clanstvo" class="mobile-nav-link" data-i18n="nav.clanstvo">Članstvo</a>
+  <a href="#kontakt" class="mobile-nav-link" data-i18n="nav.kontakt">Kontakt</a>
+  <div class="lang-switcher" style="padding:0.75rem 0; border-bottom:1px solid var(--green-light);">
+    <button class="lang-btn active" data-lang="bs">🇧🇦 Bosanski</button>
+    <span class="lang-divider">|</span>
+    <button class="lang-btn" data-lang="no">🇳🇴 Norsk</button>
+  </div>
+  <button class="auth-btn" id="openAuthBtnMobile" data-i18n="nav.prijavi">Prijavi se</button>
 </div>
 
 <!-- HERO -->
@@ -832,17 +877,17 @@
   <div class="hero-content">
 
     <h1>Vaqf Fond<br/><em>Drømmen</em></h1>
-    <p class="hero-sub">
+    <p class="hero-sub" data-i18n="hero.sub">
       Zajedno gradimo trajni fond koji raste i služi našoj zajednici — danas, sutra i za generacije koje dolaze.
     </p>
     <div class="hero-cta">
-      <a href="#clanstvo" class="btn-primary" id="postaniClanBtn">Postani član</a>
-      <a href="#o-nama" class="btn-outline">Saznaj više</a>
+      <a href="#clanstvo" class="btn-primary" id="postaniClanBtn" data-i18n="hero.clan">Postani član</a>
+      <a href="#o-nama" class="btn-outline" data-i18n="hero.vise">Saznaj više</a>
     </div>
   </div>
   <div class="scroll-indicator">
     <div class="scroll-line"></div>
-    <span>Skrolaj</span>
+    <span data-i18n="hero.scroll">Skrolaj</span>
   </div>
 </section>
 
@@ -872,19 +917,13 @@
         </svg>
       </div>
       <div class="o-nama-text">
-        <div class="section-label">O nama</div>
-        <h2 class="section-title">Šta je Vaqf Fond Drømmen?</h2>
+        <div class="section-label" data-i18n="onama.label">O nama</div>
+        <h2 class="section-title" data-i18n="onama.title">Šta je Vaqf Fond Drømmen?</h2>
         <div class="divider"></div>
         <div class="section-body">
-          <p>
-            Vaqf Fond Drømmen je neprofitna organizacija registrovana u Norveškoj, osnovana s ciljem da kroz zajedničke doprinose gradi trajni fond koji se investira i raste — a čija se dobit koristi za dobrobit naše zajednice.
-          </p>
-          <p>
-            Inspirisani stoljetnom institucijom vakufa iz islamske tradicije, vjerujemo da zajednički uložen novac može stvarati dugotrajnu vrijednost — za obrazovanje, humanitarne potrebe i jačanje zajednice.
-          </p>
-          <p>
-            Osnovali smo organizaciju s jasnim principima: transparentnost, odgovorno upravljanje i dugoročno razmišljanje.
-          </p>
+          <p data-i18n="onama.p1">Vaqf Fond Drømmen je neprofitna organizacija registrovana u Norveškoj, osnovana s ciljem da kroz zajedničke doprinose gradi trajni fond koji se investira i raste — a čija se dobit koristi za dobrobit naše zajednice.</p>
+          <p data-i18n="onama.p2">Inspirisani stoljetnom institucijom vakufa iz islamske tradicije, vjerujemo da zajednički uložen novac može stvarati dugotrajnu vrijednost — za obrazovanje, humanitarne potrebe i jačanje zajednice.</p>
+          <p data-i18n="onama.p3">Osnovali smo organizaciju s jasnim principima: transparentnost, odgovorno upravljanje i dugoročno razmišljanje.</p>
         </div>
       </div>
     </div>
@@ -895,32 +934,32 @@
 <section id="principi">
   <div class="section-inner">
     <div class="principi-intro">
-      <div class="section-label">Naši principi</div>
-      <h2 class="section-title">Na čemu gradimo</h2>
+      <div class="section-label" data-i18n="principi.label">Naši principi</div>
+      <h2 class="section-title" data-i18n="principi.title">Na čemu gradimo</h2>
       <div class="divider"></div>
-      <p class="section-body">Tri stuba koja vode svaku našu odluku — od prvog doprinosa do raspodjele dobiti.</p>
+      <p class="section-body" data-i18n="principi.sub">Tri stuba koja vode svaku našu odluku — od prvog doprinosa do raspodjele dobiti.</p>
     </div>
     <div class="cards">
       <div class="card">
         <div class="card-icon">
           <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
         </div>
-        <h3>Trajnost kapitala</h3>
-        <p>Doprinosi članova se ne troše — oni se investiraju i ostaju u fondu. Samo dobit se koristi za zajednicu, kao u klasičnom vakufu.</p>
+        <h3 data-i18n="card1.title">Trajnost kapitala</h3>
+        <p data-i18n="card1.text">Doprinosi članova se ne troše — oni se investiraju i ostaju u fondu. Samo dobit se koristi za zajednicu, kao u klasičnom vakufu.</p>
       </div>
       <div class="card">
         <div class="card-icon">
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
         </div>
-        <h3>Dugoročno mišljenje</h3>
-        <p>Fond je namijenjen generacijama. Svaka odluka se donosi s pogledom na budućnost, ne na kratkoročni dobitak.</p>
+        <h3 data-i18n="card2.title">Dugoročno mišljenje</h3>
+        <p data-i18n="card2.text">Fond je namijenjen generacijama. Svaka odluka se donosi s pogledom na budućnost, ne na kratkoročni dobitak.</p>
       </div>
       <div class="card">
         <div class="card-icon">
           <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         </div>
-        <h3>Transparentnost</h3>
-        <p>Svi članovi imaju uvid u poslovanje, investicije i rezultate fonda. Godišnji izvještaj je dostupan svima.</p>
+        <h3 data-i18n="card3.title">Transparentnost</h3>
+        <p data-i18n="card3.text">Svi članovi imaju uvid u poslovanje, investicije i rezultate fonda. Godišnji izvještaj je dostupan svima.</p>
       </div>
     </div>
   </div>
@@ -929,48 +968,44 @@
 <!-- ČLANSTVO -->
 <section id="clanstvo">
   <div class="section-inner">
-    <div class="section-label">Pridruži se</div>
-    <h2 class="section-title">Kako postati član</h2>
+    <div class="section-label" data-i18n="clan.label">Pridruži se</div>
+    <h2 class="section-title" data-i18n="clan.title">Kako postati član</h2>
     <div class="divider"></div>
     <div class="clanstvo-grid">
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
           <div class="step-content">
-            <h4>Kontaktiraj nas</h4>
-            <p>Pošalji nam email s kratkim predstavljanjem i interesom za članstvo.</p>
+            <h4 data-i18n="step1.title">Kontaktiraj nas</h4>
+            <p data-i18n="step1.text">Pošalji nam email s kratkim predstavljanjem i interesom za članstvo.</p>
           </div>
         </div>
         <div class="step">
           <div class="step-num">2</div>
           <div class="step-content">
-            <h4>Upoznaj se s pravilima</h4>
-            <p>Dobit ćeš statut i opis investicijske politike fonda na uvid.</p>
+            <h4 data-i18n="step2.title">Upoznaj se s pravilima</h4>
+            <p data-i18n="step2.text">Dobit ćeš statut i opis investicijske politike fonda na uvid.</p>
           </div>
         </div>
         <div class="step">
           <div class="step-num">3</div>
           <div class="step-content">
-            <h4>Uplati doprinos</h4>
-            <p>Po dogovoru uplaćuješ svoju jednokratnu ili periodičnu uplatu na račun organizacije.</p>
+            <h4 data-i18n="step3.title">Uplati doprinos</h4>
+            <p data-i18n="step3.text">Po dogovoru uplaćuješ svoju jednokratnu ili periodičnu uplatu na račun organizacije.</p>
           </div>
         </div>
         <div class="step">
           <div class="step-num">4</div>
           <div class="step-content">
-            <h4>Postani dio zajednice</h4>
-            <p>Dobrodošao si na godišnje skupštine i imaš pravo glasa u svim važnim odlukama.</p>
+            <h4 data-i18n="step4.title">Postani dio zajednice</h4>
+            <p data-i18n="step4.text">Dobrodošao si na godišnje skupštine i imaš pravo glasa u svim važnim odlukama.</p>
           </div>
         </div>
       </div>
       <div class="clanstvo-highlight">
-        <h3>Zašto je to važno?</h3>
-        <p>
-          Svaki doprinos, bez obzira na iznos, postaje dio nečeg trajnog. Fondovi rastu kroz složene kamate — mali iznosi danas mogu postati značajna sredstva za zajednicu sutra.
-        </p>
-        <div class="highlight-quote">
-          "Najbolja sadaka je ona koja teče i nakon što čovjek prestane davati."
-        </div>
+        <h3 data-i18n="hl.title">Zašto je to važno?</h3>
+        <p data-i18n="hl.text">Svaki doprinos, bez obzira na iznos, postaje dio nečeg trajnog. Fondovi rastu kroz složene kamate — mali iznosi danas mogu postati značajna sredstva za zajednicu sutra.</p>
+        <div class="highlight-quote" data-i18n="hl.quote">"Najbolja sadaka je ona koja teče i nakon što čovjek prestane davati."</div>
       </div>
     </div>
   </div>
@@ -980,9 +1015,9 @@
 <section id="kontakt">
   <div class="section-inner">
     <div class="kontakt-inner">
-      <div class="section-label">Kontakt</div>
-      <h2 class="section-title">Stupi u kontakt</h2>
-      <p class="section-body">Imaš pitanja o članstvu, fondu ili organizaciji? Slobodno nam se javi — odgovaramo u roku 48 sati.</p>
+      <div class="section-label" data-i18n="kontakt.label">Kontakt</div>
+      <h2 class="section-title" data-i18n="kontakt.title">Stupi u kontakt</h2>
+      <p class="section-body" data-i18n="kontakt.text">Imaš pitanja o članstvu, fondu ili organizaciji? Slobodno nam se javi — odgovaramo u roku 48 sati.</p>
       <a href="mailto:edisss88@hotmail.com" class="kontakt-email">
         <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
         edisss88@hotmail.com
@@ -993,7 +1028,7 @@
 
 <!-- FOOTER -->
 <footer>
-  <p><strong>Vaqf Fond Drømmen</strong> · Neprofitna organizacija registrovana u Norveškoj · Org.nr. tilgjengelig på forespørsel</p>
+  <p><strong>Vaqf Fond Drømmen</strong> · <span data-i18n="footer.text">Neprofitna organizacija registrovana u Norveškoj</span> · Org.nr. tilgjengelig på forespørsel</p>
 </footer>
 
 <!-- AUTH MODAL -->
@@ -1012,50 +1047,50 @@
     </div>
 
     <div class="modal-tabs">
-      <button class="modal-tab active" id="tabLogin">Prijava</button>
-      <button class="modal-tab" id="tabRegister">Registracija</button>
+      <button class="modal-tab active" id="tabLogin" data-i18n="modal.tab.login">Prijava</button>
+      <button class="modal-tab" id="tabRegister" data-i18n="modal.tab.reg">Registracija</button>
     </div>
 
     <!-- FORMA ZA PRIJAVU -->
     <form class="modal-form active" id="loginForm" novalidate>
       <div class="form-group">
-        <label for="loginEmail">Email adresa</label>
-        <input type="email" id="loginEmail" placeholder="vas@email.com" autocomplete="email"/>
-        <span class="field-error" id="loginEmailErr">Unesite ispravnu email adresu.</span>
+        <label for="loginEmail" data-i18n="modal.email.label">Email adresa</label>
+        <input type="email" id="loginEmail" placeholder="vas@email.com" autocomplete="email" data-i18n-placeholder="modal.email.ph"/>
+        <span class="field-error" id="loginEmailErr" data-i18n="modal.email.err">Unesite ispravnu email adresu.</span>
       </div>
       <div class="form-group">
-        <label for="loginPassword">Lozinka</label>
+        <label for="loginPassword" data-i18n="modal.pass.label">Lozinka</label>
         <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password"/>
-        <span class="field-error" id="loginPasswordErr">Unesite lozinku.</span>
+        <span class="field-error" id="loginPasswordErr" data-i18n="modal.pass.err">Unesite lozinku.</span>
       </div>
       <div class="modal-message" id="loginMsg"></div>
-      <button type="submit" class="modal-submit">Prijavi se</button>
+      <button type="submit" class="modal-submit" data-i18n="modal.submit.login">Prijavi se</button>
     </form>
 
     <!-- FORMA ZA REGISTRACIJU -->
     <form class="modal-form" id="registerForm" novalidate>
       <div class="form-group">
-        <label for="regName">Ime i prezime</label>
-        <input type="text" id="regName" placeholder="Vaše ime i prezime" autocomplete="name"/>
-        <span class="field-error" id="regNameErr">Unesite vaše ime i prezime.</span>
+        <label for="regName" data-i18n="modal.name.label">Ime i prezime</label>
+        <input type="text" id="regName" placeholder="Vaše ime i prezime" autocomplete="name" data-i18n-placeholder="modal.name.ph"/>
+        <span class="field-error" id="regNameErr" data-i18n="modal.name.err">Unesite vaše ime i prezime.</span>
       </div>
       <div class="form-group">
-        <label for="regEmail">Email adresa</label>
-        <input type="email" id="regEmail" placeholder="vas@email.com" autocomplete="email"/>
-        <span class="field-error" id="regEmailErr">Unesite ispravnu email adresu.</span>
+        <label for="regEmail" data-i18n="modal.email.label">Email adresa</label>
+        <input type="email" id="regEmail" placeholder="vas@email.com" autocomplete="email" data-i18n-placeholder="modal.email.ph"/>
+        <span class="field-error" id="regEmailErr" data-i18n="modal.email.err">Unesite ispravnu email adresu.</span>
       </div>
       <div class="form-group">
-        <label for="regPassword">Lozinka</label>
-        <input type="password" id="regPassword" placeholder="Minimum 8 znakova" autocomplete="new-password"/>
-        <span class="field-error" id="regPasswordErr">Lozinka mora imati najmanje 8 znakova.</span>
+        <label for="regPassword" data-i18n="modal.pass.label">Lozinka</label>
+        <input type="password" id="regPassword" placeholder="Minimum 8 znakova" autocomplete="new-password" data-i18n-placeholder="modal.pass.ph"/>
+        <span class="field-error" id="regPasswordErr" data-i18n="modal.pass.len">Lozinka mora imati najmanje 8 znakova.</span>
       </div>
       <div class="form-group">
-        <label for="regConfirm">Potvrdi lozinku</label>
-        <input type="password" id="regConfirm" placeholder="Ponovi lozinku" autocomplete="new-password"/>
-        <span class="field-error" id="regConfirmErr">Lozinke se ne podudaraju.</span>
+        <label for="regConfirm" data-i18n="modal.confirm.label">Potvrdi lozinku</label>
+        <input type="password" id="regConfirm" placeholder="Ponovi lozinku" autocomplete="new-password" data-i18n-placeholder="modal.confirm.ph"/>
+        <span class="field-error" id="regConfirmErr" data-i18n="modal.confirm.err">Lozinke se ne podudaraju.</span>
       </div>
       <div class="modal-message" id="registerMsg"></div>
-      <button type="submit" class="modal-submit">Registruj se</button>
+      <button type="submit" class="modal-submit" data-i18n="modal.submit.reg">Registruj se</button>
     </form>
 
   </div>
@@ -1089,17 +1124,168 @@
   const db   = getFirestore(app);
 
   // ── UI ELEMENTI ──
-  const overlay   = document.getElementById('authModal');
-  const openBtn   = document.getElementById('openAuthBtn');
-  const closeBtn  = document.getElementById('closeAuthBtn');
-  const tabLogin  = document.getElementById('tabLogin');
-  const tabReg    = document.getElementById('tabRegister');
-  const loginForm = document.getElementById('loginForm');
-  const regForm   = document.getElementById('registerForm');
+  const overlay        = document.getElementById('authModal');
+  const openBtn        = document.getElementById('openAuthBtn');
+  const openBtnMobile  = document.getElementById('openAuthBtnMobile');
+  const closeBtn       = document.getElementById('closeAuthBtn');
+  const tabLogin       = document.getElementById('tabLogin');
+  const tabReg         = document.getElementById('tabRegister');
+  const loginForm      = document.getElementById('loginForm');
+  const regForm        = document.getElementById('registerForm');
+
+  // ── I18N ──
+  const t = {
+    bs: {
+      'nav.onama': 'O nama',
+      'nav.principi': 'Principi',
+      'nav.clanstvo': 'Članstvo',
+      'nav.kontakt': 'Kontakt',
+      'nav.prijavi': 'Prijavi se',
+      'hero.sub': 'Zajedno gradimo trajni fond koji raste i služi našoj zajednici — danas, sutra i za generacije koje dolaze.',
+      'hero.clan': 'Postani član',
+      'hero.vise': 'Saznaj više',
+      'hero.scroll': 'Skrolaj',
+      'onama.label': 'O nama',
+      'onama.title': 'Šta je Vaqf Fond Drømmen?',
+      'onama.p1': 'Vaqf Fond Drømmen je neprofitna organizacija registrovana u Norveškoj, osnovana s ciljem da kroz zajedničke doprinose gradi trajni fond koji se investira i raste — a čija se dobit koristi za dobrobit naše zajednice.',
+      'onama.p2': 'Inspirisani stoljetnom institucijom vakufa iz islamske tradicije, vjerujemo da zajednički uložen novac može stvarati dugotrajnu vrijednost — za obrazovanje, humanitarne potrebe i jačanje zajednice.',
+      'onama.p3': 'Osnovali smo organizaciju s jasnim principima: transparentnost, odgovorno upravljanje i dugoročno razmišljanje.',
+      'principi.label': 'Naši principi',
+      'principi.title': 'Na čemu gradimo',
+      'principi.sub': 'Tri stuba koja vode svaku našu odluku — od prvog doprinosa do raspodjele dobiti.',
+      'card1.title': 'Trajnost kapitala',
+      'card1.text': 'Doprinosi članova se ne troše — oni se investiraju i ostaju u fondu. Samo dobit se koristi za zajednicu, kao u klasičnom vakufu.',
+      'card2.title': 'Dugoročno mišljenje',
+      'card2.text': 'Fond je namijenjen generacijama. Svaka odluka se donosi s pogledom na budućnost, ne na kratkoročni dobitak.',
+      'card3.title': 'Transparentnost',
+      'card3.text': 'Svi članovi imaju uvid u poslovanje, investicije i rezultate fonda. Godišnji izvještaj je dostupan svima.',
+      'clan.label': 'Pridruži se',
+      'clan.title': 'Kako postati član',
+      'step1.title': 'Kontaktiraj nas',
+      'step1.text': 'Pošalji nam email s kratkim predstavljanjem i interesom za članstvo.',
+      'step2.title': 'Upoznaj se s pravilima',
+      'step2.text': 'Dobit ćeš statut i opis investicijske politike fonda na uvid.',
+      'step3.title': 'Uplati doprinos',
+      'step3.text': 'Po dogovoru uplaćuješ svoju jednokratnu ili periodičnu uplatu na račun organizacije.',
+      'step4.title': 'Postani dio zajednice',
+      'step4.text': 'Dobrodošao si na godišnje skupštine i imaš pravo glasa u svim važnim odlukama.',
+      'hl.title': 'Zašto je to važno?',
+      'hl.text': 'Svaki doprinos, bez obzira na iznos, postaje dio nečeg trajnog. Fondovi rastu kroz složene kamate — mali iznosi danas mogu postati značajna sredstva za zajednicu sutra.',
+      'hl.quote': '"Najbolja sadaka je ona koja teče i nakon što čovjek prestane davati."',
+      'kontakt.label': 'Kontakt',
+      'kontakt.title': 'Stupi u kontakt',
+      'kontakt.text': 'Imaš pitanja o članstvu, fondu ili organizaciji? Slobodno nam se javi — odgovaramo u roku 48 sati.',
+      'footer.text': 'Neprofitna organizacija registrovana u Norveškoj',
+      'modal.tab.login': 'Prijava',
+      'modal.tab.reg': 'Registracija',
+      'modal.submit.login': 'Prijavi se',
+      'modal.submit.reg': 'Registruj se',
+      'modal.email.label': 'Email adresa',
+      'modal.email.ph': 'vas@email.com',
+      'modal.email.err': 'Unesite ispravnu email adresu.',
+      'modal.pass.label': 'Lozinka',
+      'modal.pass.err': 'Unesite lozinku.',
+      'modal.pass.ph': 'Minimum 8 znakova',
+      'modal.pass.len': 'Lozinka mora imati najmanje 8 znakova.',
+      'modal.name.label': 'Ime i prezime',
+      'modal.name.ph': 'Vaše ime i prezime',
+      'modal.name.err': 'Unesite vaše ime i prezime.',
+      'modal.confirm.label': 'Potvrdi lozinku',
+      'modal.confirm.ph': 'Ponovi lozinku',
+      'modal.confirm.err': 'Lozinke se ne podudaraju.',
+    },
+    no: {
+      'nav.onama': 'Om oss',
+      'nav.principi': 'Prinsipper',
+      'nav.clanstvo': 'Medlemskap',
+      'nav.kontakt': 'Kontakt',
+      'nav.prijavi': 'Logg inn',
+      'hero.sub': 'Sammen bygger vi et varig fond som vokser og tjener vårt fellesskap — i dag, i morgen og for fremtidige generasjoner.',
+      'hero.clan': 'Bli medlem',
+      'hero.vise': 'Les mer',
+      'hero.scroll': 'Bla ned',
+      'onama.label': 'Om oss',
+      'onama.title': 'Hva er Vaqf Fond Drømmen?',
+      'onama.p1': 'Vaqf Fond Drømmen er en ideell organisasjon registrert i Norge, grunnlagt med mål om å bygge et varig fond gjennom felles bidrag — som investeres og vokser, og hvis avkastning brukes til fellesskapets beste.',
+      'onama.p2': 'Inspirert av den århundregamle institusjonen waqf fra islamsk tradisjon, tror vi at penger investert i fellesskap kan skape varig verdi — for utdanning, humanitære behov og styrking av fellesskapet.',
+      'onama.p3': 'Vi har etablert organisasjonen med klare prinsipper: åpenhet, ansvarlig forvaltning og langsiktig tenkning.',
+      'principi.label': 'Våre prinsipper',
+      'principi.title': 'Hva vi bygger på',
+      'principi.sub': 'Tre søyler som veileder hver av våre beslutninger — fra det første bidraget til fordeling av avkastning.',
+      'card1.title': 'Bevaring av kapital',
+      'card1.text': 'Medlemmenes bidrag brukes ikke opp — de investeres og forblir i fondet. Bare avkastningen brukes til fellesskapet, som i en klassisk waqf.',
+      'card2.title': 'Langsiktig tenkning',
+      'card2.text': 'Fondet er beregnet for generasjoner. Hver beslutning tas med blikk på fremtiden, ikke kortsiktig gevinst.',
+      'card3.title': 'Åpenhet',
+      'card3.text': 'Alle medlemmer har innsyn i drift, investeringer og fondets resultater. Årsrapport er tilgjengelig for alle.',
+      'clan.label': 'Bli med',
+      'clan.title': 'Slik blir du medlem',
+      'step1.title': 'Kontakt oss',
+      'step1.text': 'Send oss en e-post med en kort presentasjon og interesse for medlemskap.',
+      'step2.title': 'Bli kjent med reglene',
+      'step2.text': 'Du vil motta vedtektene og en beskrivelse av fondets investeringspolitikk.',
+      'step3.title': 'Betal bidrag',
+      'step3.text': 'Etter avtale betaler du ditt engangsbidrag eller periodiske bidrag til organisasjonens konto.',
+      'step4.title': 'Bli en del av fellesskapet',
+      'step4.text': 'Du er velkommen til de årlige generalforsamlingene og har stemmerett i alle viktige beslutninger.',
+      'hl.title': 'Hvorfor er dette viktig?',
+      'hl.text': 'Hvert bidrag, uavhengig av beløp, blir en del av noe varig. Fond vokser gjennom renters rente — små beløp i dag kan bli betydelige midler for fellesskapet i morgen.',
+      'hl.quote': '"Den beste sadaqa er den som fortsetter å strømme etter at mennesket har sluttet å gi."',
+      'kontakt.label': 'Kontakt',
+      'kontakt.title': 'Ta kontakt',
+      'kontakt.text': 'Har du spørsmål om medlemskap, fondet eller organisasjonen? Ta gjerne kontakt — vi svarer innen 48 timer.',
+      'footer.text': 'Ideell organisasjon registrert i Norge',
+      'modal.tab.login': 'Innlogging',
+      'modal.tab.reg': 'Registrering',
+      'modal.submit.login': 'Logg inn',
+      'modal.submit.reg': 'Registrer deg',
+      'modal.email.label': 'E-postadresse',
+      'modal.email.ph': 'din@epost.no',
+      'modal.email.err': 'Skriv inn en gyldig e-postadresse.',
+      'modal.pass.label': 'Passord',
+      'modal.pass.err': 'Skriv inn passord.',
+      'modal.pass.ph': 'Minimum 8 tegn',
+      'modal.pass.len': 'Passordet må ha minst 8 tegn.',
+      'modal.name.label': 'Fornavn og etternavn',
+      'modal.name.ph': 'Ditt navn',
+      'modal.name.err': 'Skriv inn navn og etternavn.',
+      'modal.confirm.label': 'Bekreft passord',
+      'modal.confirm.ph': 'Gjenta passord',
+      'modal.confirm.err': 'Passordene stemmer ikke overens.',
+    }
+  };
+
+  let currentLang = localStorage.getItem('lang') || 'bs';
+
+  function setLanguage(lang) {
+    currentLang = lang;
+    localStorage.setItem('lang', lang);
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (t[lang][key] !== undefined) el.textContent = t[lang][key];
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+      const key = el.getAttribute('data-i18n-placeholder');
+      if (t[lang][key] !== undefined) el.placeholder = t[lang][key];
+    });
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+    document.documentElement.lang = lang === 'no' ? 'no' : 'bs';
+    // Re-apply auth button text if user is logged out
+    if (openBtn.dataset.loggedIn !== 'true') {
+      openBtn.textContent = t[lang]['nav.prijavi'];
+      openBtnMobile.textContent = t[lang]['nav.prijavi'];
+    }
+  }
+
+  setLanguage(currentLang);
+
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
+  });
 
   // ── AUTH STATE — prati prijavljenog korisnika ──
-  const openBtnMobile = document.getElementById('openAuthBtnMobile');
-
   function setAuthState(user) {
     if (user) {
       const ime = user.displayName || user.email;
@@ -1109,10 +1295,10 @@
       openBtnMobile.textContent = ime;
       openBtnMobile.dataset.loggedIn = 'true';
     } else {
-      openBtn.textContent = 'Prijavi se';
+      openBtn.textContent = t[currentLang]['nav.prijavi'];
       openBtn.title = '';
       openBtn.dataset.loggedIn = 'false';
-      openBtnMobile.textContent = 'Prijavi se';
+      openBtnMobile.textContent = t[currentLang]['nav.prijavi'];
       openBtnMobile.dataset.loggedIn = 'false';
     }
   }
