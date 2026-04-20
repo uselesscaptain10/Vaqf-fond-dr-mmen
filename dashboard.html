@@ -213,6 +213,34 @@
       color: var(--gold);
     }
 
+    /* ── ACCOUNT BANNER ── */
+    .account-banner {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--gold-light);
+      border: 1px solid var(--gold);
+      border-radius: 8px;
+      padding: 0.9rem 1.25rem;
+      margin-bottom: 2rem;
+      font-size: 0.92rem;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .account-banner svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .account-banner strong {
+      font-weight: 700;
+      color: var(--green-dark);
+      letter-spacing: 0.03em;
+    }
+
     /* ── STATS ── */
     .stats-grid {
       display: grid;
@@ -810,6 +838,14 @@
       <p data-i18n="dash.welcomeText">Ovo je vaša lična zona unutar Vaqf Fond Drømmen. Ovdje možete pratiti fond, obavještenja i informacije o članstvu.</p>
     </div>
 
+    <!-- INFO BANNER -->
+    <div class="account-banner">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/>
+      </svg>
+      <span><span data-i18n="dash.accountPre">Broj računa je</span> <strong>3126.50.45106</strong> <span data-i18n="dash.accountPost">i ovdje možete izvršavati sve uplate.</span></span>
+    </div>
+
     <!-- STATISTIKE -->
     <div class="stats-grid">
       <div class="stat-card">
@@ -1012,6 +1048,8 @@
       'dash.profileJoined': 'Član od',
       'dash.saveName':      'Spremi',
       'dash.namePh':        'Vaše ime i prezime',
+      'dash.accountPre':    'Broj računa je',
+      'dash.accountPost':   'i ovdje možete izvršavati sve uplate.',
       'dash.panelDocs':     'Dokumenti',
       'dash.uploadClick':   'Klikni ili prevuci fajl',
       'dash.docsEmpty':     'Nema dostupnih dokumenata.',
@@ -1049,6 +1087,8 @@
       'dash.profileJoined': 'Medlem siden',
       'dash.saveName':      'Lagre',
       'dash.namePh':        'Ditt navn',
+      'dash.accountPre':    'Kontonummeret er',
+      'dash.accountPost':   'og her kan du gjennomføre alle innbetalinger.',
       'dash.panelDocs':     'Dokumenter',
       'dash.uploadClick':   'Klikk eller dra fil',
       'dash.docsEmpty':     'Ingen dokumenter tilgjengelig.',
