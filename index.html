@@ -351,6 +351,73 @@
       line-height: 1.7;
     }
 
+    /* ── KAKO INVESTIRAMO ── */
+    #investicije {
+      background: var(--white);
+    }
+
+    .invest-intro {
+      max-width: 680px;
+      font-size: 1.05rem;
+      color: var(--text);
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+    }
+
+    .invest-list-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 1rem;
+    }
+
+    .fund-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.75rem;
+    }
+
+    .fund-item {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      background: var(--bg);
+      border: 1px solid var(--green-light);
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+
+    .fund-item:hover {
+      border-color: var(--green-mid);
+      transform: translateY(-2px);
+    }
+
+    .fund-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      flex-shrink: 0;
+    }
+
+    .fund-name {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    @media (max-width: 860px) {
+      .fund-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 500px) {
+      .fund-grid { grid-template-columns: 1fr; }
+    }
+
     /* ── ČLANSTVO ── */
     .clanstvo-grid {
       display: grid;
@@ -965,6 +1032,27 @@
   </div>
 </section>
 
+<!-- KAKO INVESTIRAMO -->
+<section id="investicije">
+  <div class="section-inner">
+    <div class="section-label" data-i18n="invest.label">Investicije</div>
+    <h2 class="section-title" data-i18n="invest.title">Kako investiramo</h2>
+    <div class="divider"></div>
+    <p class="invest-intro" data-i18n="invest.intro">Sredstva fonda ulažemo u pažljivo odabrane globalne i norveške investicione fondove, s fokusom na dugoročan rast i stabilnost. Svaki fond je odabran prema principima diverzifikacije, odgovornog upravljanja i transparentnosti — kako bi kapital naših članova radio za zajednicu danas i za generacije koje dolaze.</p>
+    <div class="invest-list-label" data-i18n="invest.listLabel">Fondovi u koje investiramo</div>
+    <div class="fund-grid">
+      <div class="fund-item"><div class="fund-dot"></div><div class="fund-name">SpareBank 1 Verden Verdi</div></div>
+      <div class="fund-item"><div class="fund-dot"></div><div class="fund-name">SpareBank 1 Norge Verdi</div></div>
+      <div class="fund-item"><div class="fund-dot"></div><div class="fund-name">SpareBank 1 Utbytte</div></div>
+      <div class="fund-item"><div class="fund-dot"></div><div class="fund-name">SpareBank 1 Global Indeks</div></div>
+      <div class="fund-item"><div class="fund-dot"></div><div class="fund-name">Storebrand Global Multifactor</div></div>
+      <div class="fund-item"><div class="fund-dot"></div><div class="fund-name">Storebrand Global Value</div></div>
+      <div class="fund-item"><div class="fund-dot"></div><div class="fund-name">Delphi Global</div></div>
+      <div class="fund-item"><div class="fund-dot"></div><div class="fund-name">Odin USA</div></div>
+    </div>
+  </div>
+</section>
+
 <!-- ČLANSTVO -->
 <section id="clanstvo">
   <div class="section-inner">
@@ -1159,6 +1247,10 @@
       'card2.text': 'Fond je namijenjen generacijama. Svaka odluka se donosi s pogledom na budućnost, ne na kratkoročni dobitak.',
       'card3.title': 'Transparentnost',
       'card3.text': 'Svi članovi imaju uvid u poslovanje, investicije i rezultate fonda. Godišnji izvještaj je dostupan svima.',
+      'invest.label': 'Investicije',
+      'invest.title': 'Kako investiramo',
+      'invest.intro': 'Sredstva fonda ulažemo u pažljivo odabrane globalne i norveške investicione fondove, s fokusom na dugoročan rast i stabilnost. Svaki fond je odabran prema principima diverzifikacije, odgovornog upravljanja i transparentnosti — kako bi kapital naših članova radio za zajednicu danas i za generacije koje dolaze.',
+      'invest.listLabel': 'Fondovi u koje investiramo',
       'clan.label': 'Pridruži se',
       'clan.title': 'Kako postati član',
       'step1.title': 'Registruj se na stranici',
@@ -1218,6 +1310,10 @@
       'card2.text': 'Fondet er beregnet for generasjoner. Hver beslutning tas med blikk på fremtiden, ikke kortsiktig gevinst.',
       'card3.title': 'Åpenhet',
       'card3.text': 'Alle medlemmer har innsyn i drift, investeringer og fondets resultater. Årsrapport er tilgjengelig for alle.',
+      'invest.label': 'Investeringer',
+      'invest.title': 'Slik investerer vi',
+      'invest.intro': 'Fondets midler investeres i nøye utvalgte globale og norske investeringsfond, med fokus på langsiktig vekst og stabilitet. Hvert fond er valgt ut etter prinsipper om diversifisering, ansvarlig forvaltning og åpenhet — slik at våre medlemmers kapital arbeider for fellesskapet i dag og for fremtidige generasjoner.',
+      'invest.listLabel': 'Fondene vi investerer i',
       'clan.label': 'Bli med',
       'clan.title': 'Slik blir du medlem',
       'step1.title': 'Registrer deg på nettsiden',
