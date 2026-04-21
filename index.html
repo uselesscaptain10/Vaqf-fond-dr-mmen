@@ -974,24 +974,75 @@
   <div class="section-inner">
     <div class="o-nama-grid">
       <div class="o-nama-visual">
-        <svg class="geometric-art" viewBox="0 0 280 280" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- outer ring -->
-          <circle cx="140" cy="140" r="130" stroke="#a8d5b5" stroke-width="1"/>
-          <circle cx="140" cy="140" r="110" stroke="#a8d5b5" stroke-width="0.5" stroke-dasharray="4 4"/>
-          <!-- 8-pointed star -->
-          <polygon points="140,30 155,95 210,60 175,115 240,130 175,145 210,200 155,165 140,230 125,165 70,200 105,145 40,130 105,115 70,60 125,95" fill="none" stroke="#4caf7d" stroke-width="1.2"/>
-          <!-- inner geometric -->
-          <polygon points="140,70 170,115 220,120 185,155 195,205 140,180 85,205 95,155 60,120 110,115" fill="none" stroke="#2e7d50" stroke-width="1.5"/>
-          <!-- center -->
-          <circle cx="140" cy="140" r="30" fill="#e8f5ee" stroke="#4caf7d" stroke-width="1.5"/>
-          <circle cx="140" cy="140" r="16" fill="#4caf7d"/>
-          <!-- crescent in center -->
-          <path d="M144 130a12 12 0 1 0 0 20 9 9 0 1 1 0-20z" fill="white"/>
-          <!-- gold accents -->
-          <circle cx="140" cy="30" r="4" fill="#c8a84b"/>
-          <circle cx="140" cy="250" r="4" fill="#c8a84b"/>
-          <circle cx="30" cy="140" r="4" fill="#c8a84b"/>
-          <circle cx="250" cy="140" r="4" fill="#c8a84b"/>
+        <svg class="geometric-art" viewBox="0 0 280 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Dekorativni prsten pozadine -->
+          <circle cx="140" cy="138" r="120" stroke="#e8f5ee" stroke-width="1" stroke-dasharray="5 5"/>
+
+          <!-- Tlo -->
+          <rect x="30" y="234" width="220" height="4" rx="2" fill="#a8d5b5"/>
+
+          <!-- ── LIJEVI MINARET ── -->
+          <rect x="64" y="112" width="17" height="124" fill="#2e7d50" rx="2"/>
+          <!-- Balkon -->
+          <rect x="60" y="158" width="25" height="5" fill="#c8a84b" rx="1.5"/>
+          <!-- Šiljasta kapa -->
+          <path d="M64 112 Q72.5 88 81 112Z" fill="#c8a84b"/>
+          <!-- Finijal -->
+          <line x1="72" y1="88" x2="72" y2="75" stroke="#c8a84b" stroke-width="2"/>
+          <circle cx="72" cy="73" r="3.5" fill="#c8a84b"/>
+          <!-- Prozorčići -->
+          <path d="M68 130 L68 122 Q72.5 117 77 122 L77 130Z" fill="#e8f5ee"/>
+          <path d="M68 154 L68 146 Q72.5 141 77 146 L77 154Z" fill="#e8f5ee"/>
+          <path d="M68 198 L68 190 Q72.5 185 77 190 L77 198Z" fill="#e8f5ee"/>
+
+          <!-- ── DESNI MINARET ── -->
+          <rect x="199" y="112" width="17" height="124" fill="#2e7d50" rx="2"/>
+          <rect x="195" y="158" width="25" height="5" fill="#c8a84b" rx="1.5"/>
+          <path d="M199 112 Q207.5 88 216 112Z" fill="#c8a84b"/>
+          <line x1="208" y1="88" x2="208" y2="75" stroke="#c8a84b" stroke-width="2"/>
+          <circle cx="208" cy="73" r="3.5" fill="#c8a84b"/>
+          <path d="M203 130 L203 122 Q207.5 117 212 122 L212 130Z" fill="#e8f5ee"/>
+          <path d="M203 154 L203 146 Q207.5 141 212 146 L212 154Z" fill="#e8f5ee"/>
+          <path d="M203 198 L203 190 Q207.5 185 212 190 L212 198Z" fill="#e8f5ee"/>
+
+          <!-- ── TIJELO ZGRADE ── -->
+          <rect x="81" y="184" width="118" height="52" fill="#2e7d50" rx="2"/>
+          <!-- Horizontalna dekorativna linija na zgradi -->
+          <line x1="81" y1="196" x2="199" y2="196" stroke="#4caf7d" stroke-width="1" opacity="0.5"/>
+
+          <!-- ── LIJEVA MALA KUPOLA ── -->
+          <path d="M81 184 Q103 160 125 184Z" fill="#2e7d50"/>
+          <line x1="103" y1="160" x2="103" y2="151" stroke="#c8a84b" stroke-width="1.5"/>
+          <circle cx="103" cy="149" r="3" fill="#c8a84b"/>
+
+          <!-- ── DESNA MALA KUPOLA ── -->
+          <path d="M155 184 Q177 160 199 184Z" fill="#2e7d50"/>
+          <line x1="177" y1="160" x2="177" y2="151" stroke="#c8a84b" stroke-width="1.5"/>
+          <circle cx="177" cy="149" r="3" fill="#c8a84b"/>
+
+          <!-- ── CENTRALNA GLAVNA KUPOLA ── -->
+          <path d="M98 184 Q140 124 182 184Z" fill="#2e7d50"/>
+          <!-- Rebra kupole -->
+          <path d="M105 184 Q140 131 175 184" stroke="#4caf7d" stroke-width="1" fill="none" opacity="0.55"/>
+          <path d="M114 184 Q140 140 166 184" stroke="#4caf7d" stroke-width="0.7" fill="none" opacity="0.4"/>
+          <!-- Finijal kupole -->
+          <line x1="140" y1="124" x2="140" y2="109" stroke="#c8a84b" stroke-width="2.5"/>
+          <circle cx="140" cy="107" r="4.5" fill="#c8a84b"/>
+
+          <!-- ── ULAZNI LUK ── -->
+          <path d="M120 236 L120 210 Q120 194 140 190 Q160 194 160 210 L160 236Z" fill="#1a2e22"/>
+          <!-- Dekorativni obrub luka -->
+          <path d="M123 236 L123 211 Q123 198 140 194 Q157 198 157 211 L157 236" stroke="#4caf7d" stroke-width="0.8" fill="none" opacity="0.5"/>
+
+          <!-- ── LIJEVI PROZOR ── -->
+          <path d="M89 228 L89 211 Q98 203 107 211 L107 228Z" fill="#1a2e22"/>
+
+          <!-- ── DESNI PROZOR ── -->
+          <path d="M173 228 L173 211 Q182 203 191 211 L191 228Z" fill="#1a2e22"/>
+
+          <!-- Zlatni detalji na zgradi -->
+          <circle cx="98" cy="204" r="2.5" fill="#c8a84b" opacity="0.65"/>
+          <circle cx="182" cy="204" r="2.5" fill="#c8a84b" opacity="0.65"/>
         </svg>
       </div>
       <div class="o-nama-text">
