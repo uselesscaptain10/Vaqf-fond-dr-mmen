@@ -875,8 +875,8 @@
           <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
         </div>
         <div class="stat-label" data-i18n="dash.statFund">Vrijednost fonda</div>
-        <div class="stat-value">–</div>
-        <div class="stat-sub" data-i18n="dash.statFundSub">dostupno na skupštini</div>
+        <div class="stat-value">22 925</div>
+        <div class="stat-sub" data-i18n="dash.statFundSub">NOK</div>
       </div>
       <div class="stat-card">
         <div class="stat-icon">
@@ -895,7 +895,7 @@
         <span class="chart-note" data-i18n="dash.chartNote">Placeholder podaci</span>
       </div>
       <div class="chart-total">
-        <strong id="chartTotal">0</strong> <span data-i18n="dash.nokTotal">NOK trenutna vrijednost</span>
+        <strong id="chartTotal">22 925,79</strong> <span data-i18n="dash.nokTotal">NOK trenutna vrijednost</span>
       </div>
       <canvas id="fundChart" height="100"></canvas>
     </div>
@@ -1044,7 +1044,7 @@
       'dash.statMembers':   'Broj članova',
       'dash.statMembersSub':'registrovanih članova',
       'dash.statFund':      'Vrijednost fonda',
-      'dash.statFundSub':   'dostupno na skupštini',
+      'dash.statFundSub':   'NOK',
       'dash.statSkup':      'Sljedeća skupština',
       'dash.statSkupSub':   'godišnja skupština',
       'dash.chartTitle':    'Razvoj fonda',
@@ -1084,7 +1084,7 @@
       'dash.statMembers':   'Antall medlemmer',
       'dash.statMembersSub':'registrerte medlemmer',
       'dash.statFund':      'Fondets verdi',
-      'dash.statFundSub':   'tilgjengelig på generalforsamlingen',
+      'dash.statFundSub':   'NOK',
       'dash.statSkup':      'Neste generalforsamling',
       'dash.statSkupSub':   'generalforsamling',
       'dash.chartTitle':    'Fondets utvikling',
@@ -1419,7 +1419,7 @@
 
     // Podaci fonda — ažuriraj kada fond počne
     const labels = ['Apr 2026'];
-    const verdier = [0];
+    const verdier = [22925.79];
 
     new Chart(ctx, {
       type: 'line',
