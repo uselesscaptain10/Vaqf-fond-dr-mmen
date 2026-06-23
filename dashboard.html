@@ -1182,6 +1182,7 @@
       } catch { document.getElementById('memberCount').textContent = '–'; }
 
       initDocs(user);
+      resetInactivityTimer();
     } catch (err) {
       clearTimeout(loadTimeout);
       console.error('init error:', err);
@@ -1214,7 +1215,20 @@
     nameEditForm.classList.remove('visible');
   });
 
+  let inactivityTimer;
+  function resetInactivityTimer() {
+    clearTimeout(inactivityTimer);
+    inactivityTimer = setTimeout(async () => {
+      await signOut(auth);
+      window.location.href = 'index.html';
+    }, 300000);
+  }
+  ['mousemove', 'keydown', 'click', 'touchstart', 'scroll'].forEach(ev =>
+    document.addEventListener(ev, resetInactivityTimer)
+  );
+
   document.getElementById('logoutBtn').addEventListener('click', async () => {
+    clearTimeout(inactivityTimer);
     await signOut(auth);
     window.location.href = 'index.html';
   });
