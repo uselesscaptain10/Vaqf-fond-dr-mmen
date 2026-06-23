@@ -251,7 +251,7 @@
 
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 1rem;
       margin-bottom: 2rem;
     }
@@ -861,14 +861,6 @@
         <div class="stat-sub" data-i18n="dash.statFundSub">NOK</div>
         <div class="stat-sub" style="margin-top:2px;font-size:0.72rem;opacity:0.6">08.05.2026.</div>
       </div>
-      <div class="stat-card">
-        <div class="stat-icon">
-          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-        </div>
-        <div class="stat-label" data-i18n="dash.statSkup">Sljedeća skupština</div>
-        <div class="stat-value" style="font-size:1.3rem">April 2027</div>
-        <div class="stat-sub" data-i18n="dash.statSkupSub">godišnja skupština</div>
-      </div>
     </div>
 
     <div class="chart-panel">
@@ -880,6 +872,15 @@
         <strong id="chartTotal">22 925,79</strong> <span data-i18n="dash.nokTotal">NOK trenutna vrijednost</span>
       </div>
       <canvas id="fundChart" height="100"></canvas>
+    </div>
+
+    <div class="stat-card" style="margin-bottom:1.5rem">
+      <div class="stat-icon">
+        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      </div>
+      <div class="stat-label" data-i18n="dash.statSkup">Sljedeća skupština</div>
+      <div class="stat-value" style="font-size:1.3rem">April 2027</div>
+      <div class="stat-sub" data-i18n="dash.statSkupSub">godišnja skupština</div>
     </div>
 
     <div class="sections-grid">
