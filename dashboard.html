@@ -857,7 +857,7 @@
           <svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M2 10h2M2 14h2M20 10h2M20 14h2"/></svg>
         </div>
         <div class="stat-label" data-i18n="dash.statFund">Vrijednost fonda</div>
-        <div class="stat-value">49 815</div>
+        <div class="stat-value">54 349</div>
         <div class="stat-sub" data-i18n="dash.statFundSub">NOK</div>
         <div class="stat-sub" style="margin-top:2px;font-size:0.72rem;opacity:0.6">23.06.2026.</div>
       </div>
@@ -869,7 +869,7 @@
         <span class="chart-note" data-i18n="dash.chartNote">Dobitak 1,9%</span>
       </div>
       <div class="chart-total">
-        <strong id="chartTotal">49 815</strong> <span data-i18n="dash.nokTotal">NOK trenutna vrijednost</span>
+        <strong id="chartTotal">54 349</strong> <span data-i18n="dash.nokTotal">NOK trenutna vrijednost</span>
       </div>
       <canvas id="fundChart" height="100"></canvas>
     </div>
@@ -1027,7 +1027,7 @@
       'dash.statSkup':      'Sljedeća skupština',
       'dash.statSkupSub':   'godišnja skupština',
       'dash.chartTitle':    'Razvoj fonda',
-      'dash.chartNote':     'Dobitak 1,9%',
+      'dash.chartNote':     'Dobitak 0,9%',
       'dash.nokTotal':      'NOK trenutna vrijednost',
       'dash.panelNotices':  'Obavještenja',
       'dash.notice1Title':  'Dobrodošli u Vaqf Fond Drømmen',
@@ -1067,7 +1067,7 @@
       'dash.statSkup':      'Neste generalforsamling',
       'dash.statSkupSub':   'generalforsamling',
       'dash.chartTitle':    'Fondets utvikling',
-      'dash.chartNote':     'Avkastning 1,9%',
+      'dash.chartNote':     'Avkastning 0,9%',
       'dash.nokTotal':      'NOK nåværende verdi',
       'dash.panelNotices':  'Nyheter',
       'dash.notice1Title':  'Velkommen til Vaqf Fond Drømmen',
@@ -1374,7 +1374,7 @@
     gradient.addColorStop(0, 'rgba(46,125,80,0.25)');
     gradient.addColorStop(1, 'rgba(46,125,80,0.0)');
     const labels = ['10. apr 2026', '8. maj 2026', '22. maj 2026', '23. jun 2026'];
-    const verdier = [0, 22000, 29365, 49815];
+    const verdier = [0, 22000, 29365, 54349];
     new Chart(ctx, {
       type: 'line',
       data: { labels, datasets: [{ data: verdier, borderColor: '#2e7d50', backgroundColor: gradient, borderWidth: 2.5, pointBackgroundColor: '#2e7d50', pointBorderColor: '#fff', pointBorderWidth: 2, pointRadius: 4, pointHoverRadius: 6, fill: true, tension: 0.4 }] },
