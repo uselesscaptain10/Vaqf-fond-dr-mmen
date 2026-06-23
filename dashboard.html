@@ -1359,8 +1359,8 @@
     const gradient = ctx.createLinearGradient(0, 0, 0, 280);
     gradient.addColorStop(0, 'rgba(46,125,80,0.25)');
     gradient.addColorStop(1, 'rgba(46,125,80,0.0)');
-    const labels = ['Maj 2026'];
-    const verdier = [29365];
+    const labels = ['10. apr 2026', '8. maj 2026', '22. maj 2026'];
+    const verdier = [0, 22000, 29365];
     new Chart(ctx, {
       type: 'line',
       data: { labels, datasets: [{ data: verdier, borderColor: '#2e7d50', backgroundColor: gradient, borderWidth: 2.5, pointBackgroundColor: '#2e7d50', pointBorderColor: '#fff', pointBorderWidth: 2, pointRadius: 4, pointHoverRadius: 6, fill: true, tension: 0.4 }] },
