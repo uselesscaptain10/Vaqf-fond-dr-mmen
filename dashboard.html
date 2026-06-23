@@ -1136,6 +1136,12 @@
     const user = auth.currentUser;
     if (!user) { window.location.href = 'index.html'; return; }
 
+    const loadTimeout = setTimeout(() => {
+      if (document.getElementById('loading').style.display !== 'none') {
+        document.getElementById('loading').innerHTML = '<p style="color:#e53e3e;font-size:0.95rem;text-align:center;padding:2rem;max-width:420px">Učitavanje predugo traje. Provjerite internet konekciju. Ako se problem nastavi, otvorite konzolu (F12) i pošaljite nam grešku.</p>';
+      }
+    }, 12000);
+
     try {
       const userRef = doc(db, 'users', user.uid);
       const userSnap = await getDoc(userRef);
@@ -1166,6 +1172,7 @@
       document.getElementById('profileEmail').textContent     = email;
       document.getElementById('profileJoined').textContent    = formatJoinDate(joinDate, currentLang);
       document.getElementById('profileMemberNum').textContent = memberNumber;
+      clearTimeout(loadTimeout);
       document.getElementById('loading').style.display = 'none';
       document.getElementById('content').style.display = 'block';
 
@@ -1176,6 +1183,7 @@
 
       initDocs(user);
     } catch (err) {
+      clearTimeout(loadTimeout);
       console.error('init error:', err);
       document.getElementById('loading').innerHTML = '<p style="color:#e53e3e;font-size:0.95rem;text-align:center;padding:2rem">Greška pri učitavanju: ' + (err.message || err.code || 'Pokušajte ponovo.') + '</p>';
     }
