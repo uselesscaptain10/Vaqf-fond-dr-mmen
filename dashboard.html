@@ -135,7 +135,7 @@
       height: 40px;
       border: 3px solid var(--green-light);
       border-top-color: var(--green-dark);
-      border-radius: 50%;
+      border-radius: 50%;;
       animation: spin 0.8s linear infinite;
     }
 
@@ -872,7 +872,7 @@
       </div>
       <div class="stat-card">
         <div class="stat-icon">
-          <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          <svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M2 10h2M2 14h2M20 10h2M20 14h2"/></svg>
         </div>
         <div class="stat-label" data-i18n="dash.statFund">Vrijednost fonda</div>
         <div class="stat-value">22 925</div>
@@ -1142,7 +1142,6 @@
       btn.classList.toggle('active', btn.dataset.lang === lang);
     });
     document.documentElement.lang = lang === 'no' ? 'no' : 'bs';
-    // Re-format join date when language changes
     const joinedEl = document.getElementById('profileJoined');
     if (joinedEl && joinDate) joinedEl.textContent = formatJoinDate(joinDate, lang);
   }
@@ -1154,7 +1153,6 @@
   });
 
   async function init() {
-    // Čekaj dok Firebase sigurno ne odredi auth stanje
     await auth.authStateReady();
 
     const user = auth.currentUser;
@@ -1164,7 +1162,6 @@
       return;
     }
 
-    // Koristi Firestore ime ako displayName nije postavljen
     const userRef = doc(db, 'users', user.uid);
     const userSnap = await getDoc(userRef);
     const firestoreIme = userSnap.exists() ? userSnap.data().name : '';
@@ -1175,7 +1172,6 @@
       : new Date();
     const inicijal = ime.charAt(0).toUpperCase();
 
-    // Dodijeli članski broj ako ga nema (novi i stari korisnici)
     let memberNumber = userSnap.exists() ? userSnap.data().memberNumber : null;
     if (!memberNumber) {
       const counterRef = doc(db, 'meta', 'memberCounter');
@@ -1206,7 +1202,6 @@
     document.getElementById('loading').style.display = 'none';
     document.getElementById('content').style.display = 'block';
 
-    // Učitaj broj članova
     try {
       const snap = await getCountFromServer(collection(db, 'users'));
       document.getElementById('memberCount').textContent = snap.data().count;
@@ -1238,7 +1233,6 @@
     await updateProfile(auth.currentUser, { displayName: novoIme });
     await setDoc(doc(db, 'users', auth.currentUser.uid), { name: novoIme }, { merge: true });
 
-    // Ažuriraj UI
     document.getElementById('profileName').textContent  = novoIme;
     document.getElementById('userName').textContent     = novoIme;
     document.getElementById('userAvatar').textContent   = novoIme.charAt(0).toUpperCase();
@@ -1304,7 +1298,6 @@
         div.innerHTML = renderDoc(d.id, d.data());
         list.appendChild(div.firstElementChild);
       });
-      // Wire up delete buttons
       list.querySelectorAll('.btn-delete').forEach(btn => {
         btn.addEventListener('click', () => deleteDoc2(btn.dataset.docId, btn.dataset.storagePath));
       });
@@ -1318,7 +1311,6 @@
     try {
       await deleteObject(storageRef(storage, storagePath));
       await deleteDoc(doc(db, 'documents', docId));
-      // Refresh list
       const list = document.getElementById('docList');
       list.querySelectorAll('.doc-item').forEach(el => {
         if (el.dataset.id === docId) el.remove();
@@ -1379,7 +1371,6 @@
                 type: file.type,
                 uploadedAt: serverTimestamp()
               });
-              // Reload doc in list
               const snap2 = await getDocs(query(collection(db, 'documents'), orderBy('uploadedAt', 'desc')));
               const data = snap2.docs.find(d => d.id === docRef.id)?.data();
               if (data) {
@@ -1417,7 +1408,6 @@
     gradient.addColorStop(0, 'rgba(46,125,80,0.25)');
     gradient.addColorStop(1, 'rgba(46,125,80,0.0)');
 
-    // Podaci fonda — ažuriraj kada fond počne
     const labels = ['Apr 2026'];
     const verdier = [22925.79];
 
