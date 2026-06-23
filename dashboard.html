@@ -1136,44 +1136,49 @@
     const user = auth.currentUser;
     if (!user) { window.location.href = 'index.html'; return; }
 
-    const userRef = doc(db, 'users', user.uid);
-    const userSnap = await getDoc(userRef);
-    const firestoreIme = userSnap.exists() ? userSnap.data().name : '';
-    const ime = user.displayName || firestoreIme || user.email.split('@')[0];
-    const email = user.email;
-    joinDate = user.metadata.creationTime ? new Date(user.metadata.creationTime) : new Date();
-    const inicijal = ime.charAt(0).toUpperCase();
-
-    let memberNumber = userSnap.exists() ? userSnap.data().memberNumber : null;
-    if (!memberNumber) {
-      const counterRef = doc(db, 'meta', 'memberCounter');
-      await runTransaction(db, async (tx) => {
-        const counterSnap = await tx.get(counterRef);
-        const lastNum = counterSnap.exists() ? counterSnap.data().lastNumber : 0;
-        const newNum = lastNum + 1;
-        memberNumber = 'VFD-' + String(newNum).padStart(4, '0');
-        tx.set(counterRef, { lastNumber: newNum }, { merge: true });
-        tx.set(userRef, { name: ime, email: user.email, memberNumber, createdAt: serverTimestamp() }, { merge: true });
-      });
-    }
-
-    document.getElementById('userAvatar').textContent       = inicijal;
-    document.getElementById('userName').textContent         = ime;
-    document.getElementById('userEmail').textContent        = email;
-    document.getElementById('welcomeName').textContent      = ime.split(' ')[0];
-    document.getElementById('profileName').textContent      = user.displayName || '—';
-    document.getElementById('profileEmail').textContent     = email;
-    document.getElementById('profileJoined').textContent    = formatJoinDate(joinDate, currentLang);
-    document.getElementById('profileMemberNum').textContent = memberNumber;
-    document.getElementById('loading').style.display = 'none';
-    document.getElementById('content').style.display = 'block';
-
     try {
-      const snap = await getCountFromServer(collection(db, 'users'));
-      document.getElementById('memberCount').textContent = snap.data().count;
-    } catch { document.getElementById('memberCount').textContent = '–'; }
+      const userRef = doc(db, 'users', user.uid);
+      const userSnap = await getDoc(userRef);
+      const firestoreIme = userSnap.exists() ? userSnap.data().name : '';
+      const ime = user.displayName || firestoreIme || user.email.split('@')[0];
+      const email = user.email;
+      joinDate = user.metadata.creationTime ? new Date(user.metadata.creationTime) : new Date();
+      const inicijal = ime.charAt(0).toUpperCase();
 
-    initDocs(user);
+      let memberNumber = userSnap.exists() ? userSnap.data().memberNumber : null;
+      if (!memberNumber) {
+        const counterRef = doc(db, 'meta', 'memberCounter');
+        await runTransaction(db, async (tx) => {
+          const counterSnap = await tx.get(counterRef);
+          const lastNum = counterSnap.exists() ? counterSnap.data().lastNumber : 0;
+          const newNum = lastNum + 1;
+          memberNumber = 'VFD-' + String(newNum).padStart(4, '0');
+          tx.set(counterRef, { lastNumber: newNum }, { merge: true });
+          tx.set(userRef, { name: ime, email: user.email, memberNumber, createdAt: serverTimestamp() }, { merge: true });
+        });
+      }
+
+      document.getElementById('userAvatar').textContent       = inicijal;
+      document.getElementById('userName').textContent         = ime;
+      document.getElementById('userEmail').textContent        = email;
+      document.getElementById('welcomeName').textContent      = ime.split(' ')[0];
+      document.getElementById('profileName').textContent      = user.displayName || '—';
+      document.getElementById('profileEmail').textContent     = email;
+      document.getElementById('profileJoined').textContent    = formatJoinDate(joinDate, currentLang);
+      document.getElementById('profileMemberNum').textContent = memberNumber;
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('content').style.display = 'block';
+
+      try {
+        const snap = await getCountFromServer(collection(db, 'users'));
+        document.getElementById('memberCount').textContent = snap.data().count;
+      } catch { document.getElementById('memberCount').textContent = '–'; }
+
+      initDocs(user);
+    } catch (err) {
+      console.error('init error:', err);
+      document.getElementById('loading').innerHTML = '<p style="color:#e53e3e;font-size:0.95rem;text-align:center;padding:2rem">Greška pri učitavanju: ' + (err.message || err.code || 'Pokušajte ponovo.') + '</p>';
+    }
   }
 
   init();
