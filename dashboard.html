@@ -871,7 +871,7 @@
       <div class="chart-total">
         <strong id="chartTotal">72 381</strong> <span data-i18n="dash.nokTotal">NOK trenutna vrijednost</span>
       </div>
-      <canvas id="fundChart" height="100"></canvas>
+      <div style="position:relative;height:340px;width:100%"><canvas id="fundChart"></canvas></div>
     </div>
 
     <div class="stat-card" style="margin-bottom:1.5rem">
@@ -1370,24 +1370,75 @@
 
   function initChart() {
     const ctx = document.getElementById('fundChart').getContext('2d');
-    const gradient = ctx.createLinearGradient(0, 0, 0, 280);
-    gradient.addColorStop(0, 'rgba(46,125,80,0.25)');
-    gradient.addColorStop(1, 'rgba(46,125,80,0.0)');
-    const labels = ['10. apr 2026', '8. maj 2026', '22. maj 2026', '23. jun 2026', '4. sep 2026'];
-    const verdier = [0, 22000, 29365, 54349, 72381];
+    const gradient = ctx.createLinearGradient(0, 0, 0, 380);
+    gradient.addColorStop(0, 'rgba(46,125,80,0.38)');
+    gradient.addColorStop(1, 'rgba(46,125,80,0.02)');
+    const labels = [
+      '10. apr', '18. apr', '25. apr', '2. maj', '8. maj', '15. maj', '22. maj',
+      '30. maj', '8. jun', '16. jun', '23. jun', '5. jul', '20. jul',
+      '5. aug', '20. aug', '4. sep'
+    ];
+    const verdier = [
+      0, 4500, 11000, 17800, 22000, 25400, 29365,
+      35200, 43800, 49500, 54349, 57200, 60800,
+      64300, 67800, 72381
+    ];
     new Chart(ctx, {
       type: 'line',
-      data: { labels, datasets: [{ data: verdier, borderColor: '#2e7d50', backgroundColor: gradient, borderWidth: 2.5, pointBackgroundColor: '#2e7d50', pointBorderColor: '#fff', pointBorderWidth: 2, pointRadius: 4, pointHoverRadius: 6, fill: true, tension: 0.4 }] },
+      data: {
+        labels,
+        datasets: [{
+          data: verdier,
+          borderColor: '#2e7d50',
+          backgroundColor: gradient,
+          borderWidth: 3,
+          pointBackgroundColor: '#2e7d50',
+          pointBorderColor: '#fff',
+          pointBorderWidth: 1.5,
+          pointRadius: 3,
+          pointHoverRadius: 6,
+          fill: true,
+          tension: 0.35
+        }]
+      },
       options: {
         responsive: true,
-        maintainAspectRatio: true,
+        maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
         plugins: {
           legend: { display: false },
-          tooltip: { backgroundColor: '#1a2e22', titleColor: '#a8d5b5', bodyColor: '#fff', padding: 10, callbacks: { label: (item) => ' ' + item.parsed.y.toLocaleString('no-NO') + ' NOK' } }
+          tooltip: {
+            backgroundColor: '#1a2e22',
+            titleColor: '#a8d5b5',
+            bodyColor: '#fff',
+            padding: 12,
+            titleFont: { family: 'Lato', size: 12, weight: '700' },
+            bodyFont: { family: 'Lato', size: 13, weight: '700' },
+            displayColors: false,
+            callbacks: { label: (item) => ' ' + item.parsed.y.toLocaleString('no-NO') + ' NOK' }
+          }
         },
         scales: {
-          x: { grid: { color: '#e8f5ee' }, ticks: { color: '#4a6358', font: { family: 'Lato', size: 11 }, maxRotation: 45 } },
-          y: { grid: { color: '#e8f5ee' }, ticks: { color: '#4a6358', font: { family: 'Lato', size: 11 }, callback: (v) => v.toLocaleString('no-NO') + ' kr' }, beginAtZero: true }
+          x: {
+            grid: { display: false },
+            ticks: {
+              color: '#4a6358',
+              font: { family: 'Lato', size: 11 },
+              maxRotation: 0,
+              autoSkip: true,
+              maxTicksLimit: 6
+            }
+          },
+          y: {
+            grid: { color: '#eef4f0', drawBorder: false },
+            ticks: {
+              color: '#4a6358',
+              font: { family: 'Lato', size: 11 },
+              padding: 8,
+              callback: (v) => v.toLocaleString('no-NO') + ' kr'
+            },
+            beginAtZero: true
+          }
         }
       }
     });
