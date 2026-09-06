@@ -511,65 +511,111 @@
       font-family: 'Amiri', serif;
       font-size: 1.2rem;
       color: var(--green-dark);
-      margin-bottom: 1.25rem;
+      margin-bottom: 1.5rem;
     }
 
-    .portfolio-list {
+    .portfolio-body {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .portfolio-chart-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 220px;
+      aspect-ratio: 1 / 1;
+      margin: 0 auto;
+    }
+
+    .portfolio-chart-center {
+      position: absolute;
+      inset: 0;
       display: flex;
       flex-direction: column;
-      gap: 1.1rem;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
     }
 
-    .portfolio-item {
+    .portfolio-chart-center-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-light);
+    }
+
+    .portfolio-chart-center-value {
+      font-family: 'Amiri', serif;
+      font-size: 1.4rem;
+      color: var(--green-dark);
+      font-weight: 700;
+      margin-top: 0.15rem;
+    }
+
+    .portfolio-chart-center-sub {
+      font-size: 0.72rem;
+      color: var(--text-light);
+      margin-top: 0.15rem;
+    }
+
+    .portfolio-legend {
       display: flex;
       flex-direction: column;
-      gap: 0.4rem;
+      gap: 1rem;
     }
 
-    .portfolio-item-head {
+    .portfolio-legend-item {
       display: flex;
-      justify-content: space-between;
-      align-items: baseline;
+      align-items: flex-start;
       gap: 0.75rem;
-      flex-wrap: wrap;
     }
 
-    .portfolio-name {
+    .portfolio-legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      flex-shrink: 0;
+      margin-top: 0.25rem;
+    }
+
+    .portfolio-legend-text {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .portfolio-legend-name {
       font-size: 0.92rem;
       font-weight: 700;
       color: var(--text);
+      margin-bottom: 0.15rem;
     }
 
-    .portfolio-value {
-      font-size: 0.85rem;
+    .portfolio-legend-meta {
+      font-size: 0.82rem;
       color: var(--text-light);
       font-weight: 700;
     }
 
-    .portfolio-value strong {
+    .portfolio-legend-meta strong {
       color: var(--green-dark);
       margin-right: 0.35rem;
     }
 
-    .portfolio-bar {
-      height: 8px;
-      background: var(--green-light);
-      border-radius: 100px;
-      overflow: hidden;
-    }
-
-    .portfolio-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--green-dark), var(--green));
-      border-radius: 100px;
-      transition: width 0.4s ease;
-    }
-
-    .portfolio-pct {
-      font-size: 0.78rem;
+    .portfolio-legend-pct {
+      display: inline-block;
+      margin-left: 0.4rem;
       color: var(--text-light);
       font-weight: 700;
-      letter-spacing: 0.03em;
+    }
+
+    @media (max-width: 560px) {
+      .portfolio-body {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
     }
 
     .chart-header {
@@ -949,20 +995,30 @@
 
     <div class="portfolio-panel">
       <div class="portfolio-title" data-i18n="dash.portfolioTitle">Trenutni portfolio</div>
-      <div class="portfolio-list">
-        <div class="portfolio-item">
-          <div class="portfolio-item-head">
-            <div class="portfolio-name">SpareBank 1 Utbytte</div>
-            <div class="portfolio-value"><strong>47 333</strong> NOK · <span class="portfolio-pct">65,8%</span></div>
+      <div class="portfolio-body">
+        <div class="portfolio-chart-wrap">
+          <canvas id="portfolioChart"></canvas>
+          <div class="portfolio-chart-center">
+            <div class="portfolio-chart-center-label" data-i18n="dash.portfolioTotal">Ukupno</div>
+            <div class="portfolio-chart-center-value">71 886</div>
+            <div class="portfolio-chart-center-sub">NOK</div>
           </div>
-          <div class="portfolio-bar"><div class="portfolio-fill" style="width:65.8%"></div></div>
         </div>
-        <div class="portfolio-item">
-          <div class="portfolio-item-head">
-            <div class="portfolio-name">DNB Disruptive Opp Retail</div>
-            <div class="portfolio-value"><strong>24 553</strong> NOK · <span class="portfolio-pct">34,2%</span></div>
+        <div class="portfolio-legend">
+          <div class="portfolio-legend-item">
+            <div class="portfolio-legend-dot" style="background:#2e7d50"></div>
+            <div class="portfolio-legend-text">
+              <div class="portfolio-legend-name">SpareBank 1 Utbytte</div>
+              <div class="portfolio-legend-meta"><strong>47 333</strong> NOK <span class="portfolio-legend-pct">· 65,8%</span></div>
+            </div>
           </div>
-          <div class="portfolio-bar"><div class="portfolio-fill" style="width:34.2%"></div></div>
+          <div class="portfolio-legend-item">
+            <div class="portfolio-legend-dot" style="background:#c8a84b"></div>
+            <div class="portfolio-legend-text">
+              <div class="portfolio-legend-name">DNB Disruptive Opp Retail</div>
+              <div class="portfolio-legend-meta"><strong>24 553</strong> NOK <span class="portfolio-legend-pct">· 34,2%</span></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1123,6 +1179,7 @@
       'dash.chartNote':     'Dobitak 1,2%',
       'dash.nokTotal':      'NOK trenutna vrijednost',
       'dash.portfolioTitle':'Trenutni portfolio',
+      'dash.portfolioTotal':'Ukupno',
       'dash.panelNotices':  'Obavještenja',
       'dash.notice1Title':  'Dobrodošli u Vaqf Fond Drømmen',
       'dash.notice1Text':   'Vaša registracija je uspješno završena. Uskoro ćete dobiti više informacija o radu fonda.',
@@ -1164,6 +1221,7 @@
       'dash.chartNote':     'Avkastning 1,2%',
       'dash.nokTotal':      'NOK nåværende verdi',
       'dash.portfolioTitle':'Nåværende portefølje',
+      'dash.portfolioTotal':'Totalt',
       'dash.panelNotices':  'Nyheter',
       'dash.notice1Title':  'Velkommen til Vaqf Fond Drømmen',
       'dash.notice1Text':   'Registreringen din er fullført. Du vil snart motta mer informasjon om fondets virksomhet.',
@@ -1540,6 +1598,49 @@
   }
 
   initChart();
+
+  function initPortfolioChart() {
+    const ctx = document.getElementById('portfolioChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: ['SpareBank 1 Utbytte', 'DNB Disruptive Opp Retail'],
+        datasets: [{
+          data: [47333, 24553],
+          backgroundColor: ['#2e7d50', '#c8a84b'],
+          borderColor: '#ffffff',
+          borderWidth: 3,
+          hoverOffset: 6
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        cutout: '68%',
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: '#1a2e22',
+            titleColor: '#a8d5b5',
+            bodyColor: '#fff',
+            padding: 12,
+            titleFont: { family: 'Lato', size: 12, weight: '700' },
+            bodyFont: { family: 'Lato', size: 12, weight: '700' },
+            displayColors: false,
+            callbacks: {
+              label: (item) => {
+                const total = item.dataset.data.reduce((a, b) => a + b, 0);
+                const pct = ((item.parsed / total) * 100).toFixed(1).replace('.', ',');
+                return ' ' + item.parsed.toLocaleString('no-NO') + ' NOK · ' + pct + '%';
+              }
+            }
+          }
+        }
+      }
+    });
+  }
+
+  initPortfolioChart();
 </script>
 
 </body>
